@@ -22,8 +22,10 @@ public class Entity
         addComponent(new TransformComponent());
     }
 
-    //returns this entity for chaining
-    //ex. entity.addComponent(asd).addComponent(dsa);
+    /**
+     * Returns this entity for chaining.
+     * ex. entity.addComponent(asd).addComponent(dsa);
+     */
     public Entity addComponent(Component component)
     {
         //only during testing//////////////////////////////////////////

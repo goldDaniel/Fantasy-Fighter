@@ -4,8 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.utils.Array;
 
-import barycentric.component.Component;
-import barycentric.component.TransformComponent;
 import barycentric.main.Entity;
 import barycentric.component.AnimationComponent;
 import barycentric.component.RenderableComponent;
@@ -26,29 +24,49 @@ public class AnimationSystem extends GameSystem
         AnimationComponent c = (AnimationComponent)e.getComponent(AnimationComponent.class);
         RenderableComponent r = (RenderableComponent)e.getComponent(RenderableComponent.class);
 
+        c.stateTime += dt;
+
         if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_1))
         {
             c.setAnimationType(AnimationComponent.AnimationType.idle);
-            c.setStateTime(0);
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_2))
         {
-            c.setAnimationType(AnimationComponent.AnimationType.idleCrouch);
-            c.setStateTime(0);
+            c.setAnimationType(AnimationComponent.AnimationType.IdleCrouch);
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_3))
         {
             c.setAnimationType(AnimationComponent.AnimationType.run);
-            c.setStateTime(0);
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_4))
         {
             c.setAnimationType(AnimationComponent.AnimationType.attack1);
-            c.setStateTime(0);
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_5))
+        {
+            c.setAnimationType(AnimationComponent.AnimationType.Death);
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_6))
+        {
+            c.setAnimationType(AnimationComponent.AnimationType.Jump);
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_7))
+        {
+            c.setAnimationType(AnimationComponent.AnimationType.Fall);
         }
 
+        if(c.isAnimationComplete())
+        {
+            if(c.getAnimationType() == AnimationComponent.AnimationType.attack1)
+            {
+                c.setAnimationType(AnimationComponent.AnimationType.attack2);
+            }
+            else if(c.getAnimationType() == AnimationComponent.AnimationType.attack2)
+            {
+                c.setAnimationType(AnimationComponent.AnimationType.attack3);
+            }
+        }
 
-        c.incrementStateTime(dt);
         r.setTextureRegion(c.getCurrentFrame());
     }
 }

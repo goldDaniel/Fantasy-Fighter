@@ -1,6 +1,5 @@
 package barycentric.system;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
@@ -16,9 +15,6 @@ public class CameraSystem extends GameSystem
     private final Vector2 averagePos = new Vector2();
     private int count;
 
-    /**
-     * @param entities
-     */
     public CameraSystem(Array<Entity> entities, OrthographicCamera cam)
     {
         super(entities, TransformComponent.class);

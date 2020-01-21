@@ -6,8 +6,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.Array;
 
 import barycentric.component.AnimationComponent;
-import barycentric.component.Component;
 import barycentric.component.RenderableComponent;
+import barycentric.component.TransformComponent;
 import barycentric.system.AnimationSystem;
 import barycentric.system.CameraSystem;
 import barycentric.system.GameSystem;
@@ -21,6 +21,7 @@ public class Entry extends ApplicationAdapter
 	Array<GameSystem> systems = new Array<>();
 
 
+	RenderingSystem s;
 
 	@Override
 	public void create ()
@@ -32,9 +33,36 @@ public class Entry extends ApplicationAdapter
 				.addComponent(new RenderableComponent());
 		entities.add(e);
 
+		((TransformComponent)e.getComponent(TransformComponent.class)).position.x += 64;
+
+		e = new Entity("Player")
+				.addComponent(new AnimationComponent())
+				.addComponent(new RenderableComponent());
+		entities.add(e);
+
+		((TransformComponent)e.getComponent(TransformComponent.class)).position.x -= 64;
+
+		e = new Entity("Player")
+				.addComponent(new AnimationComponent())
+				.addComponent(new RenderableComponent());
+		entities.add(e);
+
+		((TransformComponent)e.getComponent(TransformComponent.class)).position.x += 64;
+		((TransformComponent)e.getComponent(TransformComponent.class)).position.y += 64;
+
+		e = new Entity("Player")
+				.addComponent(new AnimationComponent())
+				.addComponent(new RenderableComponent());
+		entities.add(e);
+
+		((TransformComponent)e.getComponent(TransformComponent.class)).position.x -= 64;
+		((TransformComponent)e.getComponent(TransformComponent.class)).position.y += 64;
+
+		s = new RenderingSystem(entities, cam);
+
 		systems.add(new AnimationSystem(entities));
 		systems.add(new CameraSystem(entities, cam));
-		systems.add(new RenderingSystem(entities, cam));
+		systems.add(s);
 	}
 
 	@Override
@@ -52,8 +80,6 @@ public class Entry extends ApplicationAdapter
 	@Override
 	public void resize(int w, int h)
 	{
-//		viewport.update(w, h);
-//		viewport.apply();
+		s.updateViewport(w, h);
 	}
-
 }

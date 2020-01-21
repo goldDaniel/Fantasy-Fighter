@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
@@ -35,12 +34,21 @@ public class RenderingSystem extends GameSystem
         sh = new ShapeRenderer();
     }
 
+    public void updateViewport(int w, int h)
+    {
+        viewport.update(w, h);
+        viewport.apply();
+    }
 
     @Override
     protected void preUpdate()
     {
         Gdx.gl.glClearColor(0.2f, 0.1f, 0.2f, 1.f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+
+
+        sh.begin(ShapeRenderer.ShapeType.Line);
+        sh.setProjectionMatrix(cam.combined);
 
         s.begin();
         s.setProjectionMatrix(cam.combined);
@@ -59,11 +67,17 @@ public class RenderingSystem extends GameSystem
             tr.position.y - tex.getRegionHeight() / 2f,
                tex.getRegionWidth(),
                tex.getRegionHeight());
+
+        sh.rect(tr.position.x - tex.getRegionWidth() / 2f,
+                tr.position.y - tex.getRegionHeight() / 2f,
+                tex.getRegionWidth(),
+                tex.getRegionHeight());
     }
 
     @Override
     protected void postUpdate()
     {
         s.end();
+        sh.end();
     }
 }
