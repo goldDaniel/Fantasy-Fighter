@@ -22,27 +22,19 @@ public class RenderingSystem extends GameSystem
     SpriteBatch s;
     ShapeRenderer sh;
 
-    Matrix4 proj;
 
-    public RenderingSystem(Array<Entity> entities)
+    public RenderingSystem(Array<Entity> entities, OrthographicCamera cam)
     {
         super(entities, TransformComponent.class, RenderableComponent.class);
+        this.cam = cam;
 
-        float w = 360;
-        float h = 240;
-        cam = new OrthographicCamera(w, h);
-        viewport = new ExtendViewport(w, h, cam);
+        viewport = new ExtendViewport(cam.viewportWidth, cam.viewportHeight, cam);
 
-        proj = new Matrix4();
 
         s = new SpriteBatch();
         sh = new ShapeRenderer();
     }
 
-    public void setProjectionMatrix(Matrix4 proj)
-    {
-        this.proj.set(proj);
-    }
 
     @Override
     protected void preUpdate()
@@ -51,7 +43,7 @@ public class RenderingSystem extends GameSystem
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
         s.begin();
-        s.setProjectionMatrix(proj);
+        s.setProjectionMatrix(cam.combined);
     }
 
     @Override

@@ -14,7 +14,7 @@ public abstract class GameSystem
     private final Array<Class<? extends Component>> systemComponents;
 
 
-    public GameSystem(Array<Entity> entities)
+    public GameSystem(Array<Entity> e)
     {
         this.entities = null;
         systemComponents = null;
