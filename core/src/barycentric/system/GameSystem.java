@@ -1,5 +1,6 @@
 package barycentric.system;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Array;
 
 import barycentric.main.Entity;
@@ -13,13 +14,22 @@ public abstract class GameSystem
     private final Array<Class<? extends Component>> systemComponents;
 
 
+    public GameSystem(Array<Entity> entities)
+    {
+        this.entities = null;
+        systemComponents = null;
+        Gdx.app.error("GameSystem", "System created without components. Shutting down");
+        Gdx.app.exit();
+    }
     /**
      *
      */
-    public GameSystem(Array<Entity> entities, Class<? extends Component>... clss)
+    protected GameSystem(Array<Entity> entities, Class<? extends Component> cls, Class<? extends Component>... classArr)
     {
         this.entities = entities;
-        systemComponents = new Array<>(clss);
+        systemComponents = new Array<>();
+        systemComponents.add(cls);
+        systemComponents.addAll(classArr);
     }
 
     /**
@@ -37,9 +47,10 @@ public abstract class GameSystem
     {
         preUpdate();
 
-        Array<Entity> entities = getEntitiesWithComponents(systemComponents.toArray());
+        Array<Entity> iter = getEntitiesWithComponents(systemComponents);
 
-        for(Entity e : entities)
+
+        for(Entity e : iter)
         {
             process(e, dt);
         }
@@ -55,30 +66,35 @@ public abstract class GameSystem
 
     }
 
-    protected final Array<Entity> getEntitiesWithComponents(Class<? extends Component>... components)
+    protected abstract void process(Entity e, float dt);
+
+    private final Array<Entity> getEntitiesWithComponents(Array<Class<? extends Component>> components)
     {
+
         Array<Entity> result = new Array<>();
 
-        for(Entity e : entities)
+        if(components.size > 0)
         {
-            boolean valid = true;
-
-            for(Class c : components)
+            for(Entity e : entities)
             {
-                if(e.getComponent(c) == null)
+                boolean validEntity = true;
+
+                for(Class c : components)
                 {
-                    valid = false;
+                    if(e.getComponent(c) == null)
+                    {
+                        validEntity = false;
+                    }
+                }
+
+                if(validEntity)
+                {
+                    result.add(e);
                 }
             }
-
-            if(valid)
-            {
-                result.add(e);
-            }
         }
-
         return result;
     }
 
-    protected abstract void process(Entity e, float dt);
+
 }

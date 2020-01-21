@@ -29,7 +29,6 @@ allprojects {
         ashleyVersion = '1.7.0'
         aiVersion = '1.8.0'
 
-        imguiVersion = "22a21e7c618c37f3c3213b6f9126128be8eb8ed0"
     }
 
     repositories {
@@ -60,11 +59,6 @@ project(":core") {
     dependencies {
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
 
-        //ImGui
-        compile "com.github.kotlin-graphics:imgui:$imguiVersion"
-
-        //required for retrieving a handle within core module
-        compile "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
     }
 
 }

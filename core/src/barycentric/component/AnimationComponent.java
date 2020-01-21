@@ -11,7 +11,7 @@ public class AnimationComponent extends Component
 {
     static TextureAtlas atlas = null;
 
-    enum AnimationType
+    public enum AnimationType
     {
         idle,
         idleCrouch,
@@ -66,6 +66,11 @@ public class AnimationComponent extends Component
         frames.add(atlas.findRegion("adventurer-attack1-04"));
         anim = new Animation<>(1f/12f, frames, Animation.PlayMode.NORMAL);
         animations.put(AnimationType.attack1, anim);
+    }
+
+    public void setAnimationType(AnimationType type)
+    {
+        this.currentAnimation = type;
     }
 
     public TextureRegion getCurrentFrame()

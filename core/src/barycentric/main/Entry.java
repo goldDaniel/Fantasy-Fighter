@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Array;
 
 import barycentric.component.AnimationComponent;
+import barycentric.component.Component;
 import barycentric.component.RenderableComponent;
 import barycentric.system.AnimationSystem;
 import barycentric.system.GameSystem;

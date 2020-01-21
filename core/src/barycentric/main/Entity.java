@@ -42,13 +42,14 @@ public class Entity
         return this;
     }
 
+
     public Component getComponent(Class<? extends Component> cls)
     {
         Component result = null;
 
         for(Component c : components)
         {
-            if(c.getClass().equals(cls))
+            if(c.getClass() == cls)
             {
                 result = c;
             }
