@@ -3,6 +3,7 @@ package barycentric.system;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -21,6 +22,7 @@ public class RenderingSystem extends GameSystem
     SpriteBatch s;
     ShapeRenderer sh;
 
+    BitmapFont font;
 
     public RenderingSystem(Array<Entity> entities, OrthographicCamera cam)
     {
@@ -32,6 +34,8 @@ public class RenderingSystem extends GameSystem
 
         s = new SpriteBatch();
         sh = new ShapeRenderer();
+        font = new BitmapFont();
+        font.getData().setScale(0.5f);
     }
 
     public void updateViewport(int w, int h)
@@ -75,6 +79,11 @@ public class RenderingSystem extends GameSystem
                     -tex.getRegionWidth(),
                     tex.getRegionHeight());
         }
+
+        font.draw(s,
+                  e.NAME,
+                  tr.position.x,
+                tr.position.y + tex.getRegionHeight() / 2f);
     }
 
     @Override
