@@ -5,10 +5,36 @@ sourceCompatibility = 1.7
 
 sourceSets.main.java.srcDirs = [ "src/" ]
 
+import org.gradle.internal.os.OperatingSystem
 
 repositories {
     mavenCentral()
     maven { url "https://dl.bintray.com/kotlin/kotlin-dev" }
     maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
     maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    compile 'com.github.kotlin-graphics:imgui:ca150b4905132dfb66e2a12cdc279e087e56d0a5'
+    compile 'com.github.kotlin-graphics:uno-sdk:f528113bf45e43406953d6881915467d85a20881'
+    compile 'com.github.kotlin-graphics.glm:glm:1b4ac18dd1a3c23440d3f33596688aac60bc0141'
+
+    switch (OperatingSystem.current()) {
+        case OperatingSystem.WINDOWS:
+            ext.lwjglNatives = "natives-windows"
+            break
+        case OperatingSystem.LINUX:
+            ext.lwjglNatives = "natives-linux"
+            break
+        case OperatingSystem.MAC_OS:
+            ext.lwjglNatives = "natives-macos"
+            break
+    }
+
+    // Look up which modules and versions of LWJGL are required and add setup the appropriate natives.
+    configurations.compile.resolvedConfiguration.getResolvedArtifacts().forEach {
+        if (it.moduleVersion.id.group == "org.lwjgl") {
+            runtime "org.lwjgl:${it.moduleVersion.id.name}:${it.moduleVersion.id.version}:${lwjglNatives}"
+        }
+    }
 }
