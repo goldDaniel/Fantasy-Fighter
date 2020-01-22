@@ -1,10 +1,13 @@
 package barycentric.component;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class RenderableComponent extends Component
 {
-    private TextureRegion renderable;
+    private static TextureRegion defaultTex = new TextureRegion(new Texture("Textures/Default.png"));
+
+    private TextureRegion renderable = defaultTex;
 
     private boolean facingRight;
 

@@ -32,7 +32,7 @@ public class Entry extends ApplicationAdapter
 	{
 		OrthographicCamera cam = new OrthographicCamera(640, 360);
 
-		Entity e = new Entity("Player")
+		Entity e = new Entity("Dan")
 				.addComponent(new KeyboardInputComponent(Input.Keys.A, Input.Keys.D, Input.Keys.S, Input.Keys.W))
 				.addComponent(new PlayerStateComponent())
 				.addComponent(new MovementComponent())
@@ -40,7 +40,7 @@ public class Entry extends ApplicationAdapter
 				.addComponent(new RenderableComponent());
 		entities.add(e);
 
-		e = new Entity("Player 2")
+		e = new Entity("Maz")
 				.addComponent(new KeyboardInputComponent(Input.Keys.LEFT, Input.Keys.RIGHT, Input.Keys.DOWN, Input.Keys.UP))
 				.addComponent(new PlayerStateComponent())
 				.addComponent(new MovementComponent())
