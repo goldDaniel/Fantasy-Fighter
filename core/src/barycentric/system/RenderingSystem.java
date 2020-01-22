@@ -47,9 +47,6 @@ public class RenderingSystem extends GameSystem
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
 
-        sh.begin(ShapeRenderer.ShapeType.Line);
-        sh.setProjectionMatrix(cam.combined);
-
         s.begin();
         s.setProjectionMatrix(cam.combined);
     }
@@ -62,22 +59,27 @@ public class RenderingSystem extends GameSystem
 
         TextureRegion tex = r.getRenderable();
 
-        s.draw(tex,
-            tr.position.x - tex.getRegionWidth() / 2f,
-            tr.position.y - tex.getRegionHeight() / 2f,
-               tex.getRegionWidth(),
-               tex.getRegionHeight());
-
-        sh.rect(tr.position.x - tex.getRegionWidth() / 2f,
-                tr.position.y - tex.getRegionHeight() / 2f,
-                tex.getRegionWidth(),
-                tex.getRegionHeight());
+        if(r.isFacingRight())
+        {
+            s.draw(tex,
+                    tr.position.x - tex.getRegionWidth() / 2f,
+                    tr.position.y - tex.getRegionHeight() / 2f,
+                    tex.getRegionWidth(),
+                    tex.getRegionHeight());
+        }
+        else
+        {
+            s.draw(tex,
+                    tr.position.x + tex.getRegionWidth() / 2f,
+                    tr.position.y - tex.getRegionHeight() / 2f,
+                    -tex.getRegionWidth(),
+                    tex.getRegionHeight());
+        }
     }
 
     @Override
     protected void postUpdate()
     {
         s.end();
-        sh.end();
     }
 }

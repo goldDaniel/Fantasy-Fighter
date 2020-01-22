@@ -6,6 +6,18 @@ public class RenderableComponent extends Component
 {
     private TextureRegion renderable;
 
+    private boolean facingRight;
+
+    public void setFacingRight(boolean value)
+    {
+        facingRight = value;
+    }
+
+    public boolean isFacingRight()
+    {
+        return facingRight;
+    }
+
     public TextureRegion getRenderable()
     {
         return renderable;

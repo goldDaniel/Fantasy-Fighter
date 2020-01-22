@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntMap;
 
 import barycentric.component.KeyboardInputComponent;
+import barycentric.component.PlayerStateComponent;
 import barycentric.main.Entity;
 
 public class InputSystem extends GameSystem
@@ -18,7 +19,7 @@ public class InputSystem extends GameSystem
 
     public InputSystem(Array<Entity> e)
     {
-        super(e, KeyboardInputComponent.class);
+        super(e, KeyboardInputComponent.class, PlayerStateComponent.class);
 
         Gdx.input.setInputProcessor(multiplexer);
     }
@@ -45,7 +46,6 @@ public class InputSystem extends GameSystem
                    keycode == in.DUCK || keycode == in.JUMP)
                 {
                     in.setKey(keycode, true);
-                    System.out.println("PRESSED: " + keycode);
                     return true;
                 }
                 return false;

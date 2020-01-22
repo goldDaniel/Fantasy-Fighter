@@ -8,11 +8,13 @@ import com.badlogic.gdx.utils.Array;
 
 import barycentric.component.AnimationComponent;
 import barycentric.component.KeyboardInputComponent;
+import barycentric.component.PlayerStateComponent;
 import barycentric.component.RenderableComponent;
 import barycentric.system.AnimationSystem;
 import barycentric.system.CameraSystem;
 import barycentric.system.GameSystem;
 import barycentric.system.InputSystem;
+import barycentric.system.PlayerStateSystem;
 import barycentric.system.RenderingSystem;
 
 public class Entry extends ApplicationAdapter
@@ -29,15 +31,25 @@ public class Entry extends ApplicationAdapter
 
 		Entity e = new Entity("Player")
 				.addComponent(new KeyboardInputComponent(Input.Keys.A, Input.Keys.D, Input.Keys.S, Input.Keys.W))
+				.addComponent(new PlayerStateComponent())
 				.addComponent(new AnimationComponent())
 				.addComponent(new RenderableComponent());
 		entities.add(e);
 
-		s = new RenderingSystem(entities, cam);
+//		e = new Entity("Player")
+//				.addComponent(new KeyboardInputComponent(Input.Keys.LEFT, Input.Keys.RIGHT, Input.Keys.DOWN, Input.Keys.UP))
+//				.addComponent(new PlayerStateComponent())
+//				.addComponent(new AnimationComponent())
+//				.addComponent(new RenderableComponent());
+//		entities.add(e);
+
 
 		systems.add(new InputSystem(entities));
+		systems.add(new PlayerStateSystem(entities));
 		systems.add(new AnimationSystem(entities));
 		systems.add(new CameraSystem(entities, cam));
+
+		s = new RenderingSystem(entities, cam);
 		systems.add(s);
 	}
 
