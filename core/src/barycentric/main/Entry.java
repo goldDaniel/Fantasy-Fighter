@@ -23,8 +23,10 @@ public class Entry extends ApplicationAdapter
 	@Override
 	public void create ()
 	{
-		OrthographicCamera cam = new OrthographicCamera(640, 360);
+		entities.clear();
+		systems.clear();
 
+		OrthographicCamera cam = new OrthographicCamera(640, 360);
 		TiledMap map = new TmxMapLoader().load("Tiled/arena.tmx");
 
 		Entity e = new Entity("Dan")
@@ -58,21 +60,28 @@ public class Entry extends ApplicationAdapter
 		r.setColor(Color.SALMON);
 
 
-
 		systems.add(new InputSystem(entities));
 		systems.add(new PlayerMovementSystem(entities,map));
 		systems.add(new AnimationSystem(entities));
 		systems.add(new CameraSystem(entities, cam));
 		s = new RenderingSystem(entities, map, cam);
 		systems.add(s);
-		systems.add(new DebugRenderingSystem(entities, cam));
 	}
+
 
 	@Override
 	public void render ()
 	{
 		float dt = Gdx.graphics.getDeltaTime();
 
+		if(Gdx.input.isKeyJustPressed(Input.Keys.R))
+		{
+			for(GameSystem s : systems)
+			{
+				s.dispose();
+			}
+			create();
+		}
 
 		for(GameSystem s : systems)
 		{
