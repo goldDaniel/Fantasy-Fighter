@@ -39,6 +39,8 @@ public class PlayerMovementSystem extends GameSystem
         movement.velocityX = 0;
 
 
+        //Incoming giant state machine/////////////////////////////////////////////
+
         if(state.attackState == CharacterStateComponent.AttackState.None)
         {
             if(in.isKeyDown(in.LEFT))
@@ -151,9 +153,6 @@ public class PlayerMovementSystem extends GameSystem
                 }
             }
         }
-
-
-
 
 
 
