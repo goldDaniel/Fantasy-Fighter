@@ -4,7 +4,6 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.utils.Array;
 
 import barycentric.component.KeyboardInputComponent;
-import barycentric.component.MapCollisionComponent;
 import barycentric.component.MovementComponent;
 import barycentric.component.CharacterStateComponent;
 import barycentric.component.TransformComponent;
@@ -19,7 +18,7 @@ public class PlayerMovementSystem extends GameSystem
 
     public PlayerMovementSystem(Array<Entity> e, TiledMap map)
     {
-        super(e, KeyboardInputComponent.class, CharacterStateComponent.class, MovementComponent.class, MapCollisionComponent.class);
+        super(e, KeyboardInputComponent.class, CharacterStateComponent.class, MovementComponent.class);
 
         this.s = new MapCollisionSystem(map);
     }
@@ -31,7 +30,6 @@ public class PlayerMovementSystem extends GameSystem
         KeyboardInputComponent in  = (KeyboardInputComponent)e.getComponent(KeyboardInputComponent.class);
         CharacterStateComponent state = (CharacterStateComponent)e.getComponent(CharacterStateComponent.class);
         MovementComponent movement = (MovementComponent)e.getComponent(MovementComponent.class);
-        MapCollisionComponent col = (MapCollisionComponent)e.getComponent(MapCollisionComponent.class);
 
         if(state.currentState == CharacterStateComponent.State.InAir)
         {
@@ -64,14 +62,8 @@ public class PlayerMovementSystem extends GameSystem
 
 
         transform.position.x += movement.velocityX * dt;
-        s.processHorizontal(movement, col, transform, state);
+        s.processHorizontal(e, transform, state);
         transform.position.y += movement.velocityY * dt;
-        s.processVertical(movement, col, transform, state);
-    }
-
-    @Override
-    public void dispose()
-    {
-
+        s.processVertical(e, transform, state);
     }
 }

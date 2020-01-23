@@ -33,8 +33,8 @@ public class RenderingSystem extends GameSystem
     OrthogonalTiledMapRenderer tmr;
 
 
-    static Texture background1 = new Texture("Textures/Background_1.png");
-    static Texture background2 = new Texture("Textures/Background_2.png");
+    Texture background1 = new Texture("Textures/Background_1.png");
+    Texture background2 = new Texture("Textures/Background_2.png");
 
     public RenderingSystem(Array<Entity> entities, TiledMap map, OrthographicCamera cam)
     {
@@ -111,17 +111,12 @@ public class RenderingSystem extends GameSystem
                     -tex.getRegionWidth(),
                     tex.getRegionHeight());
         }
-    }
 
-    @Override
-    public void dispose()
-    {
-        s.dispose();
-        sh.dispose();
-        font.dispose();
-        tmr.dispose();
-
-        map.dispose();
+        font.setColor(Color.BLACK);
+        font.draw(s,
+                  e.NAME,
+                  tr.position.x - 8,
+                tr.position.y + tex.getRegionHeight() / 2f);
     }
 
     @Override

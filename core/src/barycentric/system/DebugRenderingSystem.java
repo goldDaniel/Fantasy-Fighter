@@ -44,12 +44,6 @@ public class DebugRenderingSystem extends GameSystem
     }
 
     @Override
-    public void dispose()
-    {
-        sh.dispose();
-    }
-
-    @Override
     protected void postUpdate()
     {
         sh.end();

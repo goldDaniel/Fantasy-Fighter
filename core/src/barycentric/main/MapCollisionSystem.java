@@ -57,8 +57,11 @@ public class MapCollisionSystem
         }
     }
 
-    public void processVertical(MovementComponent movement, MapCollisionComponent col, TransformComponent transform, CharacterStateComponent state)
+    public void processVertical(Entity e, TransformComponent transform, CharacterStateComponent state)
     {
+        MovementComponent movement = (MovementComponent)e.getComponent(MovementComponent.class);
+        MapCollisionComponent col    = (MapCollisionComponent)e.getComponent(MapCollisionComponent.class);
+
         colRect.set(transform.position.x + col.X,
                 transform.position.y + col.Y,
                 col.WIDTH,
@@ -97,8 +100,10 @@ public class MapCollisionSystem
         }
     }
 
-    public void processHorizontal(MovementComponent movement, MapCollisionComponent col, TransformComponent transform, CharacterStateComponent state)
+    public void processHorizontal(Entity e, TransformComponent transform, CharacterStateComponent state)
     {
+        MapCollisionComponent col = (MapCollisionComponent) e.getComponent(MapCollisionComponent.class);
+
         colRect.set(transform.position.x + col.X,
                 transform.position.y + col.Y,
                 col.WIDTH,

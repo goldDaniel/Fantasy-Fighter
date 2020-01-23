@@ -40,12 +40,6 @@ public class CameraSystem extends GameSystem
     }
 
     @Override
-    public void dispose()
-    {
-        points.clear();
-    }
-
-    @Override
     protected void postUpdate()
     {
         if(points.size > 0) averagePos.scl(1f/(float)points.size);
@@ -73,9 +67,7 @@ public class CameraSystem extends GameSystem
 
         largestDistance /= 256f;
 
-        float targetZoom = MathUtils.clamp(largestDistance, 0.7f, 1.35f);
-
-        cam.zoom = MathUtils.lerp(cam.zoom, targetZoom, 0.05f);
+        cam.zoom = MathUtils.clamp(largestDistance, 1f, 1.5f);
 
         cam.update();
 

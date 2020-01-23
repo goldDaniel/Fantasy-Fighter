@@ -32,9 +32,6 @@ public abstract class GameSystem
         systemComponents.addAll(classArr);
     }
 
-    protected abstract void process(Entity e, float dt);
-    public abstract void dispose();
-
     /**
      * This is called before the system processes every entity
      */
@@ -69,6 +66,7 @@ public abstract class GameSystem
 
     }
 
+    protected abstract void process(Entity e, float dt);
 
     private final Array<Entity> getEntitiesWithComponents(Array<Class<? extends Component>> components)
     {

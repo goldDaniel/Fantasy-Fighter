@@ -34,16 +34,6 @@ public class InputSystem extends GameSystem
         }
     }
 
-    @Override
-    public void dispose()
-    {
-        for(IntMap.Entry<InputProcessor> p : processors)
-        {
-            multiplexer.removeProcessor(p.value);
-        }
-        Gdx.input.setInputProcessor(null);
-    }
-
     private void addInputListener(final KeyboardInputComponent in)
     {
         InputProcessor processor = new InputAdapter()
