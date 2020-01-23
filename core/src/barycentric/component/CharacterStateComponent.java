@@ -13,9 +13,13 @@ public class CharacterStateComponent extends Component
     public enum AttackState
     {
         None,
+        Cooldown,
         Forward,
         Neutral,
     }
+
+    public final float COOLDOWN_TIME = 0.5f;
+    public float cooldownTimer = 0;
 
     public AttackState attackState = AttackState.None;
     public boolean facingRight = true;

@@ -40,7 +40,7 @@ public class PlayerMovementSystem extends GameSystem
 
 
         if(state.attackState == CharacterStateComponent.AttackState.None)
-            {
+        {
             if(in.isKeyDown(in.LEFT))
             {
                 state.facingRight = false;
@@ -52,6 +52,7 @@ public class PlayerMovementSystem extends GameSystem
                 movement.velocityX += PLAYER_SPEED;
             }
         }
+
 
         if(state.currentState == CharacterStateComponent.State.InAir)
         {
@@ -70,22 +71,29 @@ public class PlayerMovementSystem extends GameSystem
                 movement.velocityY -= GRAVITY * dt;
             }
 
-            if(in.isKeyDown(in.ATTACK) && (!in.isKeyDown(in.LEFT) && !in.isKeyDown(in.RIGHT)))
+            if(state.cooldownTimer <= 0)
             {
-                state.attackState = CharacterStateComponent.AttackState.Neutral;
-            }
-            else if(in.isKeyDown(in.ATTACK) && in.isKeyDown(in.LEFT))
-            {
+                if (in.isKeyDown(in.ATTACK) && (!in.isKeyDown(in.LEFT) && !in.isKeyDown(in.RIGHT)))
+                {
+                    state.attackState = CharacterStateComponent.AttackState.Neutral;
+                    state.cooldownTimer = state.COOLDOWN_TIME;
+                }
+                else if (in.isKeyDown(in.ATTACK) && in.isKeyDown(in.LEFT))
+                {
 
-                state.attackState = CharacterStateComponent.AttackState.Forward;
-                state.facingRight = false;
+                    state.attackState = CharacterStateComponent.AttackState.Forward;
+                    state.facingRight = false;
+                    state.cooldownTimer = state.COOLDOWN_TIME;
+                }
+                else if (in.isKeyDown(in.ATTACK) && in.isKeyDown(in.RIGHT))
+                {
+                    state.attackState = CharacterStateComponent.AttackState.Forward;
+                    state.facingRight = true;
+                    state.cooldownTimer = state.COOLDOWN_TIME;
+                }
             }
-            else if(in.isKeyDown(in.ATTACK) && in.isKeyDown(in.RIGHT))
-            {
-                state.attackState = CharacterStateComponent.AttackState.Forward;
-                state.facingRight = true;
-            }
-            else if(in.isKeyDown(in.JUMP) && state.attackState == CharacterStateComponent.AttackState.None)
+
+            if(in.isKeyDown(in.JUMP) && state.attackState == CharacterStateComponent.AttackState.None)
             {
                 if(!state.hasJumped)
                 {
@@ -108,19 +116,25 @@ public class PlayerMovementSystem extends GameSystem
             state.hasJumped = false;
             state.hasDoubleJumped = false;
 
-            if(in.isKeyDown(in.ATTACK) && (!in.isKeyDown(in.LEFT) && !in.isKeyDown(in.RIGHT)))
+            if(state.cooldownTimer <= 0)
             {
-                state.attackState = CharacterStateComponent.AttackState.Neutral;
-            }
-            else if(in.isKeyDown(in.ATTACK) && in.isKeyDown(in.LEFT))
-            {
-                state.attackState = CharacterStateComponent.AttackState.Forward;
-                state.facingRight = false;
-            }
-            else if(in.isKeyDown(in.ATTACK) && in.isKeyDown(in.RIGHT))
-            {
-                state.attackState = CharacterStateComponent.AttackState.Forward;
-                state.facingRight = true;
+                if (in.isKeyDown(in.ATTACK) && (!in.isKeyDown(in.LEFT) && !in.isKeyDown(in.RIGHT)))
+                {
+                    state.attackState = CharacterStateComponent.AttackState.Neutral;
+                    state.cooldownTimer = state.COOLDOWN_TIME;
+                }
+                else if (in.isKeyDown(in.ATTACK) && in.isKeyDown(in.LEFT))
+                {
+                    state.attackState = CharacterStateComponent.AttackState.Forward;
+                    state.facingRight = false;
+                    state.cooldownTimer = state.COOLDOWN_TIME;
+                }
+                else if (in.isKeyDown(in.ATTACK) && in.isKeyDown(in.RIGHT))
+                {
+                    state.attackState = CharacterStateComponent.AttackState.Forward;
+                    state.facingRight = true;
+                    state.cooldownTimer = state.COOLDOWN_TIME;
+                }
             }
 
 
@@ -149,6 +163,8 @@ public class PlayerMovementSystem extends GameSystem
             transform.position.y += movement.velocityY * dt * (1f / iterations);;
             s.processVertical(movement, col, transform, state);
         }
+
+        state.cooldownTimer -= dt;
     }
 
     @Override
