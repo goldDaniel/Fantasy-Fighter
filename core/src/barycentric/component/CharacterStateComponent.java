@@ -1,6 +1,6 @@
 package barycentric.component;
 
-public class PlayerStateComponent extends Component
+public class CharacterStateComponent extends Component
 {
     public enum State
     {

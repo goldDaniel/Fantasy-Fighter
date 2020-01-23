@@ -4,7 +4,7 @@ import com.badlogic.gdx.utils.Array;
 
 import barycentric.component.KeyboardInputComponent;
 import barycentric.component.MovementComponent;
-import barycentric.component.PlayerStateComponent;
+import barycentric.component.CharacterStateComponent;
 import barycentric.component.TransformComponent;
 import barycentric.main.Entity;
 import barycentric.main.MapCollisionSystem;
@@ -17,7 +17,7 @@ public class PlayerMovementSystem extends GameSystem
 
     public PlayerMovementSystem(Array<Entity> e, MapCollisionSystem s)
     {
-        super(e, KeyboardInputComponent.class, PlayerStateComponent.class, MovementComponent.class);
+        super(e, KeyboardInputComponent.class, CharacterStateComponent.class, MovementComponent.class);
 
         this.s = s;
     }
@@ -27,21 +27,21 @@ public class PlayerMovementSystem extends GameSystem
     {
         TransformComponent transform = (TransformComponent)e.getComponent(TransformComponent.class);
         KeyboardInputComponent in  = (KeyboardInputComponent)e.getComponent(KeyboardInputComponent.class);
-        PlayerStateComponent state = (PlayerStateComponent)e.getComponent(PlayerStateComponent.class);
+        CharacterStateComponent state = (CharacterStateComponent)e.getComponent(CharacterStateComponent.class);
         MovementComponent movement = (MovementComponent)e.getComponent(MovementComponent.class);
 
-        if(state.currentState == PlayerStateComponent.State.InAir)
+        if(state.currentState == CharacterStateComponent.State.InAir)
         {
             movement.velocityY -= 1024f * dt;
         }
 
-        if(state.currentState == PlayerStateComponent.State.OnGround)
+        if(state.currentState == CharacterStateComponent.State.OnGround)
         {
             movement.velocityY = -1;
             if(in.isKeyDown(in.JUMP))
             {
                 in.setKey(in.JUMP, false);
-                state.currentState = PlayerStateComponent.State.InAir;
+                state.currentState = CharacterStateComponent.State.InAir;
                 movement.velocityY = 384f;
             }
         }

@@ -7,7 +7,7 @@ import com.badlogic.gdx.utils.Array;
 
 import barycentric.component.MapCollisionComponent;
 import barycentric.component.MovementComponent;
-import barycentric.component.PlayerStateComponent;
+import barycentric.component.CharacterStateComponent;
 import barycentric.component.TransformComponent;
 
 public class MapCollisionSystem
@@ -57,7 +57,7 @@ public class MapCollisionSystem
         }
     }
 
-    public void processVertical(Entity e, TransformComponent transform, PlayerStateComponent state)
+    public void processVertical(Entity e, TransformComponent transform, CharacterStateComponent state)
     {
         MovementComponent movement = (MovementComponent)e.getComponent(MovementComponent.class);
         MapCollisionComponent col    = (MapCollisionComponent)e.getComponent(MapCollisionComponent.class);
@@ -67,7 +67,7 @@ public class MapCollisionSystem
                 col.WIDTH,
                 col.HEIGHT);
 
-        state.currentState = PlayerStateComponent.State.InAir;
+        state.currentState = CharacterStateComponent.State.InAir;
         for (Tile tile : collidableTiles)
         {
             int side = getCollisionSide(colRect, tile.rect);
@@ -79,13 +79,13 @@ public class MapCollisionSystem
                     if(movement.velocityY < 0)
                     {
                         transform.position.y = tile.rect.y + tile.rect.height - col.Y;
-                        state.currentState = PlayerStateComponent.State.OnGround;
+                        state.currentState = CharacterStateComponent.State.OnGround;
                     }
                 }
                 else
                 {
                     transform.position.y = tile.rect.y + tile.rect.height - col.Y;
-                    state.currentState = PlayerStateComponent.State.OnGround;
+                    state.currentState = CharacterStateComponent.State.OnGround;
                 }
 
             }
@@ -100,7 +100,7 @@ public class MapCollisionSystem
         }
     }
 
-    public void processHorizontal(Entity e, TransformComponent transform, PlayerStateComponent state)
+    public void processHorizontal(Entity e, TransformComponent transform, CharacterStateComponent state)
     {
         MapCollisionComponent col = (MapCollisionComponent) e.getComponent(MapCollisionComponent.class);
 

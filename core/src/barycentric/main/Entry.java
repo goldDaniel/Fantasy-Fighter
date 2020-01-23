@@ -13,7 +13,7 @@ import barycentric.component.AnimationComponent;
 import barycentric.component.KeyboardInputComponent;
 import barycentric.component.MapCollisionComponent;
 import barycentric.component.MovementComponent;
-import barycentric.component.PlayerStateComponent;
+import barycentric.component.CharacterStateComponent;
 import barycentric.component.RenderableComponent;
 import barycentric.component.TransformComponent;
 import barycentric.system.AnimationSystem;
@@ -41,7 +41,7 @@ public class Entry extends ApplicationAdapter
 
 		Entity e = new Entity("Dan")
 				.addComponent(new KeyboardInputComponent(Input.Keys.A, Input.Keys.D, Input.Keys.S, Input.Keys.W))
-				.addComponent(new PlayerStateComponent())
+				.addComponent(new CharacterStateComponent())
 				.addComponent(new MovementComponent())
 				.addComponent(new MapCollisionComponent(-8, -16, 16, 32))
 				.addComponent(new AnimationComponent())
@@ -56,7 +56,7 @@ public class Entry extends ApplicationAdapter
 
 		e = new Entity("Maz")
 				.addComponent(new KeyboardInputComponent(Input.Keys.LEFT, Input.Keys.RIGHT, Input.Keys.DOWN, Input.Keys.UP))
-				.addComponent(new PlayerStateComponent())
+				.addComponent(new CharacterStateComponent())
 				.addComponent(new MovementComponent())
 				.addComponent(new MapCollisionComponent(-8, -16, 16, 32))
 				.addComponent(new AnimationComponent())

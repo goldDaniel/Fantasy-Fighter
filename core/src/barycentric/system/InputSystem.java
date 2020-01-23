@@ -8,7 +8,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntMap;
 
 import barycentric.component.KeyboardInputComponent;
-import barycentric.component.PlayerStateComponent;
+import barycentric.component.CharacterStateComponent;
 import barycentric.main.Entity;
 
 public class InputSystem extends GameSystem
@@ -19,7 +19,7 @@ public class InputSystem extends GameSystem
 
     public InputSystem(Array<Entity> e)
     {
-        super(e, KeyboardInputComponent.class, PlayerStateComponent.class);
+        super(e, KeyboardInputComponent.class, CharacterStateComponent.class);
 
         Gdx.input.setInputProcessor(multiplexer);
     }
