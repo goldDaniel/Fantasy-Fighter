@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
@@ -24,18 +26,23 @@ public class RenderingSystem extends GameSystem
 
     BitmapFont font;
 
-    public RenderingSystem(Array<Entity> entities, OrthographicCamera cam)
+    TiledMap map;
+    OrthogonalTiledMapRenderer tmr;
+
+    public RenderingSystem(Array<Entity> entities, TiledMap map, OrthographicCamera cam)
     {
-        super(entities, TransformComponent.class, RenderableComponent.class);
+        super(entities, RenderableComponent.class);
+        this.map = map;
         this.cam = cam;
 
         viewport = new ExtendViewport(cam.viewportWidth, cam.viewportHeight, cam);
-
 
         s = new SpriteBatch();
         sh = new ShapeRenderer();
         font = new BitmapFont();
         font.getData().setScale(0.5f);
+
+        tmr = new OrthogonalTiledMapRenderer(map, s);
     }
 
     public void updateViewport(int w, int h)
@@ -50,6 +57,9 @@ public class RenderingSystem extends GameSystem
         Gdx.gl.glClearColor(0.2f, 0.1f, 0.2f, 1.f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
+
+        tmr.setView(cam);
+        tmr.render();
 
         s.begin();
         s.setProjectionMatrix(cam.combined);
@@ -82,7 +92,7 @@ public class RenderingSystem extends GameSystem
 
         font.draw(s,
                   e.NAME,
-                  tr.position.x,
+                  tr.position.x - 8,
                 tr.position.y + tex.getRegionHeight() / 2f);
     }
 

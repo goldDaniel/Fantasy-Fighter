@@ -31,8 +31,8 @@ public class PlayerMovementSystem extends GameSystem
         }
         if(state.currentState == PlayerStateComponent.State.Run)
         {
-            if(state.facingRight) movement.velocityX = 32;
-            else                  movement.velocityX = -32;
+            if(state.facingRight) movement.velocityX = 72;
+            else                  movement.velocityX = -72;
         }
     }
 }

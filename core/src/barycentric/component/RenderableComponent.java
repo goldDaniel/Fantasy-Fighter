@@ -9,7 +9,9 @@ public class RenderableComponent extends Component
 
     private TextureRegion renderable = defaultTex;
 
-    private boolean facingRight;
+    private boolean facingRight = true;
+
+
 
     public void setFacingRight(boolean value)
     {

@@ -29,7 +29,6 @@ public class InputSystem extends GameSystem
     {
         if(!processors.containsKey(e.ID))
         {
-
             KeyboardInputComponent in = (KeyboardInputComponent)e.getComponent(KeyboardInputComponent.class);
             addInputListener(in);
         }
