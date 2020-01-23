@@ -1,10 +1,8 @@
 package barycentric.system;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.utils.Array;
 
-import barycentric.component.KeyboardInputComponent;
+import barycentric.component.MovementComponent;
 import barycentric.component.PlayerStateComponent;
 import barycentric.main.Entity;
 import barycentric.component.AnimationComponent;
@@ -24,10 +22,35 @@ public class AnimationSystem extends GameSystem
     protected void process(Entity e, float dt)
     {
         PlayerStateComponent state  = (PlayerStateComponent)e.getComponent(PlayerStateComponent.class);
+        MovementComponent m         = (MovementComponent)e.getComponent(MovementComponent.class);
         AnimationComponent c        = (AnimationComponent)e.getComponent(AnimationComponent.class);
         RenderableComponent r       = (RenderableComponent)e.getComponent(RenderableComponent.class);
 
-        c.setAnimatonState(state.currentState);
+        if(state.currentState == PlayerStateComponent.State.OnGround)
+        {
+            float vel = m.velocityX > 0 ? m.velocityX : -m.velocityX;
+            if(vel > 0)
+            {
+                c.setAnimationState(AnimationComponent.State.Run);
+            }
+            else
+            {
+                c.setAnimationState(AnimationComponent.State.Idle);
+            }
+        }
+        if(state.currentState == PlayerStateComponent.State.InAir)
+        {
+            if(m.velocityY > 0)
+            {
+                c.setAnimationState(AnimationComponent.State.Jumping);
+            }
+            else
+            {
+                c.setAnimationState(AnimationComponent.State.Falling);
+            }
+        }
+
+
         c.incrementStateTime(dt);
 
         r.setFacingRight(state.facingRight);

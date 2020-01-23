@@ -1,4 +1,4 @@
-package barycentric.system;
+package barycentric.main;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -6,10 +6,11 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 
 import barycentric.component.MapCollisionComponent;
+import barycentric.component.MovementComponent;
+import barycentric.component.PlayerStateComponent;
 import barycentric.component.TransformComponent;
-import barycentric.main.Entity;
 
-public class MapCollisionSystem extends GameSystem
+public class MapCollisionSystem
 {
     private TiledMap map;
 
@@ -18,9 +19,8 @@ public class MapCollisionSystem extends GameSystem
     //this is here so we don't allocate a rectangle every iteration
     private Rectangle colRect = new Rectangle();
 
-    public MapCollisionSystem(Array<Entity> e, TiledMap map)
+    public MapCollisionSystem(TiledMap map)
     {
-        super(e, MapCollisionComponent.class);
         this.map = map;
 
         TiledMapTileLayer collisionLayer = (TiledMapTileLayer)map.getLayers().get("Collision");
@@ -42,26 +42,52 @@ public class MapCollisionSystem extends GameSystem
         }
     }
 
-    @Override
-    protected void process(Entity e, float dt)
+    public void processVertical(Entity e, TransformComponent transform, PlayerStateComponent state)
     {
-        TransformComponent transform = (TransformComponent)e.getComponent(TransformComponent.class);
-        MapCollisionComponent col   = (MapCollisionComponent)e.getComponent(MapCollisionComponent.class);
+        MovementComponent movement = (MovementComponent)e.getComponent(MovementComponent.class);
+        MapCollisionComponent col    = (MapCollisionComponent)e.getComponent(MapCollisionComponent.class);
 
         colRect.set(transform.position.x + col.X,
-                    transform.position.y + col.Y,
-                    col.WIDTH,
-                    col.HEIGHT);
+                transform.position.y + col.Y,
+                col.WIDTH,
+                col.HEIGHT);
 
-        for(Rectangle tile : collidableTiles)
+        state.currentState = PlayerStateComponent.State.InAir;
+        for (Rectangle tile : collidableTiles)
         {
             int side = getCollisionSide(colRect, tile);
 
-            if(side == -2)
+            if (side == 1)
+            {
+                transform.position.y = tile.y + tile.height - col.Y;
+                state.currentState = PlayerStateComponent.State.OnGround;
+            }
+            if (side == -1)
+            {
+                transform.position.y = tile.y - col.HEIGHT / 2f;
+                movement.velocityY = 0;
+            }
+        }
+    }
+
+    public void processHorizontal(Entity e, TransformComponent transform, PlayerStateComponent state)
+    {
+        MapCollisionComponent col = (MapCollisionComponent) e.getComponent(MapCollisionComponent.class);
+
+        colRect.set(transform.position.x + col.X,
+                transform.position.y + col.Y,
+                col.WIDTH,
+                col.HEIGHT);
+
+        for (Rectangle tile : collidableTiles)
+        {
+            int side = getCollisionSide(colRect, tile);
+
+            if (side == -2)
             {
                 transform.position.x = tile.x - col.WIDTH / 2;
             }
-            if(side == 2)
+            if (side == 2)
             {
                 transform.position.x = tile.x + tile.width + col.WIDTH / 2;
             }

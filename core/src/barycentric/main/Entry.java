@@ -20,10 +20,7 @@ import barycentric.system.CameraSystem;
 import barycentric.system.DebugRenderingSystem;
 import barycentric.system.GameSystem;
 import barycentric.system.InputSystem;
-import barycentric.system.MapCollisionSystem;
-import barycentric.system.MovementSystem;
 import barycentric.system.PlayerMovementSystem;
-import barycentric.system.PlayerStateSystem;
 import barycentric.system.RenderingSystem;
 
 public class Entry extends ApplicationAdapter
@@ -68,10 +65,7 @@ public class Entry extends ApplicationAdapter
 		t.position.y = 256;
 
 		systems.add(new InputSystem(entities));
-		systems.add(new PlayerStateSystem(entities));
-		systems.add(new MovementSystem(entities));
-		systems.add(new PlayerMovementSystem(entities));
-		systems.add(new MapCollisionSystem(entities, map));
+		systems.add(new PlayerMovementSystem(entities, new MapCollisionSystem(map)));
 		systems.add(new AnimationSystem(entities));
 		systems.add(new CameraSystem(entities, cam));
 		s = new RenderingSystem(entities, map, cam);
@@ -83,6 +77,7 @@ public class Entry extends ApplicationAdapter
 	public void render ()
 	{
 		float dt = Gdx.graphics.getDeltaTime();
+
 
 		for(GameSystem s : systems)
 		{

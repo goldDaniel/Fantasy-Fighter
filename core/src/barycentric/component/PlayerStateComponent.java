@@ -4,13 +4,12 @@ public class PlayerStateComponent extends Component
 {
     public enum State
     {
-        Idle,
-        Duck,
-        Run,
+        OnGround,
+        InAir,
         Attack1,
     }
 
-    public State currentState = State.Idle;
+    public State currentState = State.InAir;
 
     public boolean facingRight = true;
 }
