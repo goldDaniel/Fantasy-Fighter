@@ -3,11 +3,15 @@ package barycentric.main;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.controllers.ControllerListener;
+import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.IntMap;
 
 import barycentric.component.*;
 import barycentric.system.*;
@@ -30,7 +34,7 @@ public class Entry extends ApplicationAdapter
 		TiledMap map = new TmxMapLoader().load("Tiled/arena.tmx");
 
 		Entity e = new Entity("Dan")
-				.addComponent(new KeyboardInputComponent(Input.Keys.A, Input.Keys.D, Input.Keys.W, Input.Keys.S))
+				.addComponent(new ControllerInputComponent(104,105,1,0,3))
 				.addComponent(new CharacterStateComponent())
 				.addComponent(new MovementComponent())
 				.addComponent(new MapCollisionComponent(-8, -16, 16, 32))
@@ -45,7 +49,7 @@ public class Entry extends ApplicationAdapter
 		r.setColor(Color.SKY);
 
 		e = new Entity("Maz")
-				.addComponent(new KeyboardInputComponent(Input.Keys.LEFT, Input.Keys.RIGHT, Input.Keys.UP, Input.Keys.DOWN))
+				.addComponent(new KeyboardInputComponent(Input.Keys.LEFT, Input.Keys.RIGHT, Input.Keys.UP, Input.Keys.PERIOD, Input.Keys.SLASH))
 				.addComponent(new CharacterStateComponent())
 				.addComponent(new MovementComponent())
 				.addComponent(new MapCollisionComponent(-8, -16, 16, 32))
@@ -60,11 +64,17 @@ public class Entry extends ApplicationAdapter
 		r.setColor(Color.SALMON);
 
 
-		systems.add(new InputSystem(entities));
+
+
+
+
+		s = new RenderingSystem(entities, map, cam);
+
+		systems.add(new ControllerInputSystem(entities));
+		systems.add(new KeyboardInputSystem(entities));
 		systems.add(new PlayerMovementSystem(entities,map));
 		systems.add(new AnimationSystem(entities));
 		systems.add(new CameraSystem(entities, cam));
-		s = new RenderingSystem(entities, map, cam);
 		systems.add(s);
 	}
 

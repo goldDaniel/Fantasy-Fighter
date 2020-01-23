@@ -51,7 +51,13 @@ public class Entity
 
         for(Component c : components)
         {
+            Class sClass = c.getClass().getSuperclass();
+
             if(c.getClass() == cls)
+            {
+                result = c;
+            }
+            else if(sClass != Component.class && sClass == cls)
             {
                 result = c;
             }

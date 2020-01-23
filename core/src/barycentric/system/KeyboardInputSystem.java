@@ -11,16 +11,21 @@ import barycentric.component.KeyboardInputComponent;
 import barycentric.component.CharacterStateComponent;
 import barycentric.main.Entity;
 
-public class InputSystem extends GameSystem
+public class KeyboardInputSystem extends GameSystem
 {
     InputMultiplexer multiplexer = new InputMultiplexer();
     IntMap<InputProcessor> processors = new IntMap<>();
 
-    public InputSystem(Array<Entity> e)
+    public KeyboardInputSystem(Array<Entity> e)
     {
-        super(e, KeyboardInputComponent.class, CharacterStateComponent.class);
+        super(e, KeyboardInputComponent.class);
 
         Gdx.input.setInputProcessor(multiplexer);
+    }
+
+    public InputMultiplexer getMultiplexer()
+    {
+        return multiplexer;
     }
 
     @Override
@@ -29,7 +34,7 @@ public class InputSystem extends GameSystem
         if(!processors.containsKey(e.ID))
         {
             KeyboardInputComponent in = (KeyboardInputComponent)e.getComponent(KeyboardInputComponent.class);
-            addInputListener(in);
+            addInputListener(e.ID, in);
         }
     }
 
@@ -43,14 +48,14 @@ public class InputSystem extends GameSystem
         Gdx.input.setInputProcessor(null);
     }
 
-    private void addInputListener(final KeyboardInputComponent in)
+    private void addInputListener(int ID, final KeyboardInputComponent in)
     {
         InputProcessor processor = new InputAdapter()
         {
             @Override
             public boolean keyDown(int keycode)
             {
-                if(keycode == in.LEFT || keycode == in.RIGHT || keycode == in.JUMP || keycode == in.ATTACK)
+                if(keycode == in.LEFT || keycode == in.RIGHT || keycode == in.JUMP || keycode == in.ATTACK_WEAK || keycode == in.ATTACK_STRONG)
                 {
                     in.setKey(keycode, true);
                     return true;
@@ -61,7 +66,7 @@ public class InputSystem extends GameSystem
             @Override
             public boolean keyUp(int keycode)
             {
-                if(keycode == in.LEFT || keycode == in.RIGHT || keycode == in.JUMP || keycode == in.ATTACK)
+                if(keycode == in.LEFT || keycode == in.RIGHT || keycode == in.JUMP || keycode == in.ATTACK_WEAK || keycode == in.ATTACK_STRONG)
                 {
                     in.setKey(keycode, false);
                     return true;
@@ -71,5 +76,6 @@ public class InputSystem extends GameSystem
         };
 
         multiplexer.addProcessor(processor);
+        processors.put(ID, processor);
     }
 }

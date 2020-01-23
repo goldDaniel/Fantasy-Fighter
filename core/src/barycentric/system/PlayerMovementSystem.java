@@ -3,6 +3,7 @@ package barycentric.system;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.utils.Array;
 
+import barycentric.component.InputComponent;
 import barycentric.component.KeyboardInputComponent;
 import barycentric.component.MapCollisionComponent;
 import barycentric.component.MovementComponent;
@@ -19,7 +20,7 @@ public class PlayerMovementSystem extends GameSystem
 
     public PlayerMovementSystem(Array<Entity> e, TiledMap map)
     {
-        super(e, KeyboardInputComponent.class, CharacterStateComponent.class, MovementComponent.class, MapCollisionComponent.class);
+        super(e, InputComponent.class, CharacterStateComponent.class, MovementComponent.class, MapCollisionComponent.class);
 
         this.s = new MapCollisionSystem(map);
     }
@@ -31,7 +32,7 @@ public class PlayerMovementSystem extends GameSystem
         final float JUMP_VELOCITY = 384f;
 
         TransformComponent transform = (TransformComponent)e.getComponent(TransformComponent.class);
-        KeyboardInputComponent in  = (KeyboardInputComponent)e.getComponent(KeyboardInputComponent.class);
+        InputComponent in  = (InputComponent)e.getComponent(InputComponent.class);
         CharacterStateComponent state = (CharacterStateComponent)e.getComponent(CharacterStateComponent.class);
         MovementComponent movement = (MovementComponent)e.getComponent(MovementComponent.class);
         MapCollisionComponent col = (MapCollisionComponent)e.getComponent(MapCollisionComponent.class);
@@ -63,28 +64,19 @@ public class PlayerMovementSystem extends GameSystem
 
             if(state.cooldownTimer <= 0)
             {
-                if (in.isKeyDown(in.ATTACK) && (!in.isKeyDown(in.LEFT) && !in.isKeyDown(in.RIGHT)))
+                if (in.isKeyDown(in.ATTACK_STRONG))
                 {
                     state.attackState = CharacterStateComponent.AttackState.Neutral;
                     state.cooldownTimer = state.COOLDOWN_TIME;
-                    in.setKey(in.ATTACK, false);
+                    in.setKey(in.ATTACK_STRONG, false);
                 }
-                else if (in.isKeyDown(in.ATTACK) && in.isKeyDown(in.LEFT))
+                else if (in.isKeyDown(in.ATTACK_WEAK))
                 {
                     state.attackState = CharacterStateComponent.AttackState.Forward;
-                    state.facingRight = false;
                     state.cooldownTimer = state.COOLDOWN_TIME;
-                    in.setKey(in.ATTACK, false);
-                }
-                else if (in.isKeyDown(in.ATTACK) && in.isKeyDown(in.RIGHT))
-                {
-                    state.attackState = CharacterStateComponent.AttackState.Forward;
-                    state.facingRight = true;
-                    state.cooldownTimer = state.COOLDOWN_TIME;
-                    in.setKey(in.ATTACK, false);
+                    in.setKey(in.ATTACK_WEAK, false);
                 }
             }
-
 
             if(in.isKeyDown(in.JUMP) && state.attackState == CharacterStateComponent.AttackState.None)
             {
@@ -114,25 +106,17 @@ public class PlayerMovementSystem extends GameSystem
 
             if(state.cooldownTimer <= 0)
             {
-                if (in.isKeyDown(in.ATTACK) && (!in.isKeyDown(in.LEFT) && !in.isKeyDown(in.RIGHT)))
+                if (in.isKeyDown(in.ATTACK_STRONG))
                 {
                     state.attackState = CharacterStateComponent.AttackState.Neutral;
-                    in.setKey(in.ATTACK, false);
+                    in.setKey(in.ATTACK_STRONG, false);
                     state.cooldownTimer = state.COOLDOWN_TIME;
                 }
-                else if (in.isKeyDown(in.ATTACK) && in.isKeyDown(in.LEFT))
+                else if (in.isKeyDown(in.ATTACK_WEAK))
                 {
 
                     state.attackState = CharacterStateComponent.AttackState.Forward;
-                    state.facingRight = false;
-                    in.setKey(in.ATTACK, false);
-                    state.cooldownTimer = state.COOLDOWN_TIME;
-                }
-                else if (in.isKeyDown(in.ATTACK) && in.isKeyDown(in.RIGHT))
-                {
-                    state.attackState = CharacterStateComponent.AttackState.Forward;
-                    state.facingRight = true;
-                    in.setKey(in.ATTACK, false);
+                    in.setKey(in.ATTACK_WEAK, false);
                     state.cooldownTimer = state.COOLDOWN_TIME;
                 }
             }

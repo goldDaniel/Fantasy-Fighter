@@ -47,7 +47,9 @@ project(":desktop") {
         implementation project(":core")
         api "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
-        
+
+        compile "com.badlogicgames.gdx:gdx-controllers-lwjgl3:$gdxVersion"
+        compile "com.badlogicgames.gdx:gdx-controllers-platform-lwjgl3:$gdxVersion:natives-desktop"
     }
 }
 
@@ -56,7 +58,7 @@ project(":core") {
 
     dependencies {
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
-
+        compile "com.badlogicgames.gdx:gdx-controllers:$gdxVersion"
     }
 
 }
@@ -72,6 +74,9 @@ project(":html") {
         api "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion"
         api "com.badlogicgames.gdx:gdx:$gdxVersion:sources"
         api "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion:sources"
-        
+
+        compile "com.badlogicgames.gdx:gdx-controllers:$gdxVersion:sources"
+        compile "com.badlogicgames.gdx:gdx-controllers-gwt:$gdxVersion"
+        compile "com.badlogicgames.gdx:gdx-controllers-gwt:$gdxVersion:sources"
     }
 }
