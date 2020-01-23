@@ -26,21 +26,59 @@ public class AnimationSystem extends GameSystem
         AnimationComponent c        = (AnimationComponent)e.getComponent(AnimationComponent.class);
         RenderableComponent r       = (RenderableComponent)e.getComponent(RenderableComponent.class);
 
+
         if(state.currentState == CharacterStateComponent.State.OnGround)
         {
-            float vel = m.velocityX > 0 ? m.velocityX : -m.velocityX;
-            if(vel > 0)
+            if(state.attackState == CharacterStateComponent.AttackState.Neutral)
             {
-                c.setAnimationState(AnimationComponent.State.Run);
+                c.setAnimationState(AnimationComponent.State.AttackGround1);
+
+                if(c.isAnimationComplete())
+                {
+                    c.setAnimationState(AnimationComponent.State.Idle);
+                    state.attackState = CharacterStateComponent.AttackState.None;
+                }
+            }
+            else if(state.attackState == CharacterStateComponent.AttackState.Forward)
+            {
+                c.setAnimationState(AnimationComponent.State.AttackGround3);
+
+                if(c.isAnimationComplete())
+                {
+                    c.setAnimationState(AnimationComponent.State.Idle);
+                    state.attackState = CharacterStateComponent.AttackState.None;
+                }
             }
             else
             {
-                c.setAnimationState(AnimationComponent.State.Idle);
+                float vel = m.velocityX > 0 ? m.velocityX : -m.velocityX;
+                if (vel > 0)
+                {
+                    c.setAnimationState(AnimationComponent.State.Run);
+                }
+                else
+                {
+                    c.setAnimationState(AnimationComponent.State.Idle);
+                }
             }
         }
         if(state.currentState == CharacterStateComponent.State.InAir)
         {
-            if(m.velocityY > 0)
+            if(state.attackState == CharacterStateComponent.AttackState.Neutral)
+            {
+                c.setAnimationState(AnimationComponent.State.AttackAir2);
+            }
+            else if(state.attackState == CharacterStateComponent.AttackState.Forward)
+            {
+                c.setAnimationState(AnimationComponent.State.AttackAir1);
+
+                if(c.isAnimationComplete())
+                {
+                    c.setAnimationState(AnimationComponent.State.Falling);
+                    state.attackState = CharacterStateComponent.AttackState.None;
+                }
+            }
+            else if(m.velocityY > 0)
             {
                 if(state.hasDoubleJumped)
                 {

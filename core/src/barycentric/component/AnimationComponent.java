@@ -17,14 +17,19 @@ public class AnimationComponent extends Component
         JumpSecond,
         Falling,
 
+        AttackGround1,
+        AttackGround2,
+        AttackGround3,
+
+        AttackAir1,
+        AttackAir2,
+        AttackAir3,
     }
-
     static TextureAtlas atlas = null;
-
     float stateTime = 0;
 
-    ArrayMap<AnimationComponent.State, Animation> animations = new ArrayMap<>();
-    AnimationComponent.State currentAnimation = AnimationComponent.State.Idle;
+    ArrayMap<State, Animation> animations = new ArrayMap<>();
+    State currentAnimation = State.Idle;
 
     public AnimationComponent()
     {
@@ -40,7 +45,7 @@ public class AnimationComponent extends Component
         frames.add(atlas.findRegion("adventurer-idle-02"));
         frames.add(atlas.findRegion("adventurer-idle-03"));
         Animation<TextureRegion> anim = new Animation<>(1f/8f, frames, Animation.PlayMode.LOOP);
-        animations.put(AnimationComponent.State.Idle, anim);
+        animations.put(State.Idle, anim);
 
 
         frames = new Array<>();
@@ -51,16 +56,50 @@ public class AnimationComponent extends Component
         frames.add(atlas.findRegion("adventurer-run-04"));
         frames.add(atlas.findRegion("adventurer-run-05"));
         anim = new Animation<>(1f/12f, frames, Animation.PlayMode.LOOP);
-        animations.put(AnimationComponent.State.Run, anim);
+        animations.put(State.Run, anim);
 
-//        frames = new Array<>();
-//        frames.add(atlas.findRegion("adventurer-attack1-00"));
-//        frames.add(atlas.findRegion("adventurer-attack1-01"));
-//        frames.add(atlas.findRegion("adventurer-attack1-02"));
-//        frames.add(atlas.findRegion("adventurer-attack1-03"));
-//        frames.add(atlas.findRegion("adventurer-attack1-04"));
-//        anim = new Animation<>(1f/12f, frames, Animation.PlayMode.NORMAL);
-//        animations.put(AnimationComponent.State.Attack1, anim);
+        frames = new Array<>();
+        frames.add(atlas.findRegion("adventurer-attack1-00"));
+        frames.add(atlas.findRegion("adventurer-attack1-01"));
+        frames.add(atlas.findRegion("adventurer-attack1-02"));
+        frames.add(atlas.findRegion("adventurer-attack1-03"));
+        frames.add(atlas.findRegion("adventurer-attack1-04"));
+        anim = new Animation<>(1f/12f, frames, Animation.PlayMode.NORMAL);
+        animations.put(State.AttackGround1, anim);
+
+        frames = new Array<>();
+        frames.add(atlas.findRegion("adventurer-attack2-00"));
+        frames.add(atlas.findRegion("adventurer-attack2-01"));
+        frames.add(atlas.findRegion("adventurer-attack2-02"));
+        frames.add(atlas.findRegion("adventurer-attack2-03"));
+        frames.add(atlas.findRegion("adventurer-attack2-04"));
+        frames.add(atlas.findRegion("adventurer-attack2-05"));
+        anim = new Animation<>(1f/12f, frames, Animation.PlayMode.NORMAL);
+        animations.put(State.AttackGround2, anim);
+
+        frames = new Array<>();
+        frames.add(atlas.findRegion("adventurer-attack3-00"));
+        frames.add(atlas.findRegion("adventurer-attack3-01"));
+        frames.add(atlas.findRegion("adventurer-attack3-02"));
+        frames.add(atlas.findRegion("adventurer-attack3-03"));
+        frames.add(atlas.findRegion("adventurer-attack3-04"));
+        frames.add(atlas.findRegion("adventurer-attack3-05"));
+        anim = new Animation<>(1f/16f, frames, Animation.PlayMode.NORMAL);
+        animations.put(State.AttackGround3, anim);
+
+        frames = new Array<>();
+        frames.add(atlas.findRegion("adventurer-air-attack1-00"));
+        frames.add(atlas.findRegion("adventurer-air-attack1-01"));
+        frames.add(atlas.findRegion("adventurer-air-attack1-02"));
+        frames.add(atlas.findRegion("adventurer-air-attack1-03"));
+        anim = new Animation<>(1f/12f, frames, Animation.PlayMode.NORMAL);
+        animations.put(State.AttackAir1, anim);
+
+        frames = new Array<>();
+        frames.add(atlas.findRegion("adventurer-air-attack3-loop-00"));
+        frames.add(atlas.findRegion("adventurer-air-attack3-loop-01"));
+        anim = new Animation<>(1f/12f, frames, Animation.PlayMode.LOOP);
+        animations.put(State.AttackAir2, anim);
 
         frames = new Array<>();
         frames.add(atlas.findRegion("adventurer-jump-00"));
@@ -68,7 +107,7 @@ public class AnimationComponent extends Component
         frames.add(atlas.findRegion("adventurer-jump-02"));
         frames.add(atlas.findRegion("adventurer-jump-03"));
         anim = new Animation<>(1f/12f, frames, Animation.PlayMode.NORMAL);
-        animations.put(AnimationComponent.State.JumpFirst, anim);
+        animations.put(State.JumpFirst, anim);
 
         frames = new Array<>();
         frames.add(atlas.findRegion("adventurer-smrslt-00"));
@@ -82,7 +121,7 @@ public class AnimationComponent extends Component
         frames.add(atlas.findRegion("adventurer-fall-00"));
         frames.add(atlas.findRegion("adventurer-fall-01"));
         anim = new Animation<>(1f/12f, frames, Animation.PlayMode.LOOP);
-        animations.put(AnimationComponent.State.Falling, anim);
+        animations.put(State.Falling, anim);
     }
 
     public void incrementStateTime(float dt)
@@ -90,11 +129,11 @@ public class AnimationComponent extends Component
         stateTime += dt;
     }
 
-    public void setAnimationState(AnimationComponent.State type)
+    public void setAnimationState(State type)
     {
-        if(this.currentAnimation != type)
+        if(currentAnimation != type)
         {
-            this.currentAnimation = type;
+            currentAnimation = type;
             stateTime = 0;
         }
     }
