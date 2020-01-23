@@ -21,7 +21,7 @@ public class HtmlLauncher extends GwtApplication {
 
         // UNCOMMENT THIS CODE FOR A RESIZABLE APPLICATION
         // PADDING is to avoid scrolling in iframes, set to 20 if you have problems
-         private static final int PADDING = 0;
+         private static final int PADDING = 20;
          private GwtApplicationConfiguration cfg;
 
          @Override
