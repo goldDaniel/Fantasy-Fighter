@@ -13,4 +13,7 @@ public class CharacterStateComponent extends Component
     public State currentState = State.InAir;
 
     public boolean facingRight = true;
+
+    public boolean hasJumped = false;
+    public boolean hasDoubleJumped = false;
 }

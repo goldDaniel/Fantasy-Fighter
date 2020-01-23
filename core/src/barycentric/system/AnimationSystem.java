@@ -42,7 +42,15 @@ public class AnimationSystem extends GameSystem
         {
             if(m.velocityY > 0)
             {
-                c.setAnimationState(AnimationComponent.State.Jumping);
+                if(state.hasDoubleJumped)
+                {
+                    c.setAnimationState(AnimationComponent.State.JumpSecond);
+                }
+                else
+                {
+                    c.setAnimationState(AnimationComponent.State.JumpFirst);
+                }
+
             }
             else
             {

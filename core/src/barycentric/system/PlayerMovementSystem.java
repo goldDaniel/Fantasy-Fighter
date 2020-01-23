@@ -36,14 +36,33 @@ public class PlayerMovementSystem extends GameSystem
         if(state.currentState == CharacterStateComponent.State.InAir)
         {
             movement.velocityY -= 1024f * dt;
+
+            if(in.isKeyDown(in.JUMP))
+            {
+                if(!state.hasJumped)
+                {
+                    state.hasJumped = true;
+                    in.setKey(in.JUMP, false);
+                    movement.velocityY = 384f;
+                }
+                else if(!state.hasDoubleJumped)
+                {
+                    state.hasDoubleJumped = true;
+                    in.setKey(in.JUMP, false);
+                    movement.velocityY = 384f;
+                }
+            }
         }
 
         if(state.currentState == CharacterStateComponent.State.OnGround)
         {
             movement.velocityY = -1;
+            state.hasJumped = false;
+            state.hasDoubleJumped = false;
 
             if(in.isKeyDown(in.JUMP))
             {
+                state.hasJumped = true;
                 in.setKey(in.JUMP, false);
                 state.currentState = CharacterStateComponent.State.InAir;
                 movement.velocityY = 384f;

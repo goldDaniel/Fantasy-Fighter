@@ -13,7 +13,8 @@ public class AnimationComponent extends Component
     {
         Idle,
         Run,
-        Jumping,
+        JumpFirst,
+        JumpSecond,
         Falling,
 
     }
@@ -67,7 +68,15 @@ public class AnimationComponent extends Component
         frames.add(atlas.findRegion("adventurer-jump-02"));
         frames.add(atlas.findRegion("adventurer-jump-03"));
         anim = new Animation<>(1f/12f, frames, Animation.PlayMode.NORMAL);
-        animations.put(AnimationComponent.State.Jumping, anim);
+        animations.put(AnimationComponent.State.JumpFirst, anim);
+
+        frames = new Array<>();
+        frames.add(atlas.findRegion("adventurer-smrslt-00"));
+        frames.add(atlas.findRegion("adventurer-smrslt-01"));
+        frames.add(atlas.findRegion("adventurer-smrslt-02"));
+        frames.add(atlas.findRegion("adventurer-smrslt-03"));
+        anim = new Animation<>(1f/12f, frames, Animation.PlayMode.LOOP);
+        animations.put(State.JumpSecond, anim);
 
         frames = new Array<>();
         frames.add(atlas.findRegion("adventurer-fall-00"));
