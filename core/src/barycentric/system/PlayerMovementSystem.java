@@ -1,5 +1,6 @@
 package barycentric.system;
 
+import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.utils.Array;
 
 import barycentric.component.KeyboardInputComponent;
@@ -15,11 +16,11 @@ public class PlayerMovementSystem extends GameSystem
 
     MapCollisionSystem s;
 
-    public PlayerMovementSystem(Array<Entity> e, MapCollisionSystem s)
+    public PlayerMovementSystem(Array<Entity> e, TiledMap map)
     {
         super(e, KeyboardInputComponent.class, CharacterStateComponent.class, MovementComponent.class);
 
-        this.s = s;
+        this.s = new MapCollisionSystem(map);
     }
 
     @Override
