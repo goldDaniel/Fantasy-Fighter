@@ -11,7 +11,7 @@ import barycentric.main.MapCollisionSystem;
 
 public class PlayerMovementSystem extends GameSystem
 {
-    static final float PLAYER_SPEED = 128f;
+    static final float PLAYER_SPEED = 192f;
 
     MapCollisionSystem s;
 
@@ -38,6 +38,7 @@ public class PlayerMovementSystem extends GameSystem
         if(state.currentState == CharacterStateComponent.State.OnGround)
         {
             movement.velocityY = -1;
+
             if(in.isKeyDown(in.JUMP))
             {
                 in.setKey(in.JUMP, false);

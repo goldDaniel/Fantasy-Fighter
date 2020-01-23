@@ -67,7 +67,7 @@ public class CameraSystem extends GameSystem
 
         largestDistance /= 256f;
 
-        cam.zoom = MathUtils.clamp(largestDistance, 1f, 2f);
+        cam.zoom = MathUtils.clamp(largestDistance, 1f, 1.5f);
 
         cam.update();
 

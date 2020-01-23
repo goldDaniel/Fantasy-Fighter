@@ -6,7 +6,8 @@ public class CharacterStateComponent extends Component
     {
         OnGround,
         InAir,
-        Attack1,
+        GroundAttackForward,
+        GroundAttackUp,
     }
 
     public State currentState = State.InAir;

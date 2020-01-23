@@ -6,7 +6,6 @@ public class KeyboardInputComponent extends Component
 {
     public final int LEFT;
     public final int RIGHT;
-    public final int DUCK;
     public final int JUMP;
 
     private IntMap<Boolean> keyPressed = new IntMap<>(4);
@@ -15,12 +14,10 @@ public class KeyboardInputComponent extends Component
     {
         LEFT = left;
         RIGHT = right;
-        DUCK = duck;
         JUMP = jump;
 
         keyPressed.put(LEFT, false);
         keyPressed.put(RIGHT, false);
-        keyPressed.put(DUCK, false);
         keyPressed.put(JUMP, false);
     }
 

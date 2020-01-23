@@ -41,8 +41,7 @@ public class InputSystem extends GameSystem
             @Override
             public boolean keyDown(int keycode)
             {
-                if(keycode == in.LEFT || keycode == in.RIGHT ||
-                   keycode == in.DUCK || keycode == in.JUMP)
+                if(keycode == in.LEFT || keycode == in.RIGHT || keycode == in.JUMP)
                 {
                     in.setKey(keycode, true);
                     return true;
@@ -53,8 +52,7 @@ public class InputSystem extends GameSystem
             @Override
             public boolean keyUp(int keycode)
             {
-                if(keycode == in.LEFT || keycode == in.RIGHT ||
-                   keycode == in.DUCK || keycode == in.JUMP)
+                if(keycode == in.LEFT || keycode == in.RIGHT || keycode == in.JUMP)
                 {
                     in.setKey(keycode, false);
                     return true;
