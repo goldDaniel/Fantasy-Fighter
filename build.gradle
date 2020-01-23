@@ -6,8 +6,6 @@ buildscript {
         mavenCentral()
         maven { url "https://plugins.gradle.org/m2/" }
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
-        maven { url "https://dl.bintray.com/kotlin/kotlin-dev" } //for Kotlin
-        maven { url 'https://jitpack.io' } //for kotlin-graphics/imgui
         jcenter()
         google()
     }

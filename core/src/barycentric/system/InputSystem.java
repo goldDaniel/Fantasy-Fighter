@@ -13,7 +13,6 @@ import barycentric.main.Entity;
 
 public class InputSystem extends GameSystem
 {
-
     InputMultiplexer multiplexer = new InputMultiplexer();
     IntMap<InputProcessor> processors = new IntMap<>();
 
