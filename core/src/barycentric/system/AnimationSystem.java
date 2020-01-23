@@ -56,4 +56,10 @@ public class AnimationSystem extends GameSystem
         r.setFacingRight(state.facingRight);
         r.setTextureRegion(c.getCurrentFrame());
     }
+
+    @Override
+    public void dispose()
+    {
+
+    }
 }
