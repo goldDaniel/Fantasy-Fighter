@@ -8,7 +8,7 @@ public class CharacterStateComponent extends Component
         InAir,
     }
 
-    public State currentState = State.InAir;
+
 
     public enum AttackState
     {
@@ -17,10 +17,12 @@ public class CharacterStateComponent extends Component
         Neutral,
     }
 
-    public final float COOLDOWN_TIME = 0.25f;
+    public State currentState = State.InAir;
+    public AttackState attackState = AttackState.None;
+
+    public final float COOLDOWN_TIME = 0.15f;
     public float cooldownTimer = 0;
 
-    public AttackState attackState = AttackState.None;
     public boolean facingRight = true;
     public boolean hasJumped = false;
     public boolean hasDoubleJumped = false;

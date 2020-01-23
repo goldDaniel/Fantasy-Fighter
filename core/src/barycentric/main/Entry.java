@@ -77,10 +77,7 @@ public class Entry extends ApplicationAdapter
 		//restart
 		if(Gdx.input.isKeyJustPressed(Input.Keys.R))
 		{
-			for(GameSystem s : systems)
-			{
-				s.dispose();
-			}
+			dispose();
 			create();
 		}
 
@@ -94,5 +91,14 @@ public class Entry extends ApplicationAdapter
 	public void resize(int w, int h)
 	{
 		s.updateViewport(w, h);
+	}
+
+	@Override
+	public void dispose()
+	{
+		for(GameSystem s : systems)
+		{
+			s.dispose();
+		}
 	}
 }
