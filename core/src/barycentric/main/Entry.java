@@ -3,6 +3,7 @@ package barycentric.main;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -48,8 +49,10 @@ public class Entry extends ApplicationAdapter
 		entities.add(e);
 
 		TransformComponent t = (TransformComponent)e.getComponent(TransformComponent.class);
-		t.position.x = 128;
-		t.position.y = 256;
+		t.position.x = 16*16;
+		t.position.y = 16*40;
+		RenderableComponent r = (RenderableComponent)e.getComponent(RenderableComponent.class);
+		r.setColor(Color.CYAN);
 
 		e = new Entity("Maz")
 				.addComponent(new KeyboardInputComponent(Input.Keys.LEFT, Input.Keys.RIGHT, Input.Keys.DOWN, Input.Keys.UP))
@@ -61,8 +64,12 @@ public class Entry extends ApplicationAdapter
 		entities.add(e);
 
 		t = (TransformComponent)e.getComponent(TransformComponent.class);
-		t.position.x = 256;
-		t.position.y = 256;
+		t.position.x = 16*48;
+		t.position.y = 16*40;
+		r = (RenderableComponent)e.getComponent(RenderableComponent.class);
+		r.setColor(Color.CORAL);
+
+
 
 		systems.add(new InputSystem(entities));
 		systems.add(new PlayerMovementSystem(entities, new MapCollisionSystem(map)));

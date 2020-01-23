@@ -1,14 +1,17 @@
 package barycentric.system;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
@@ -29,6 +32,10 @@ public class RenderingSystem extends GameSystem
     TiledMap map;
     OrthogonalTiledMapRenderer tmr;
 
+
+    Texture background1 = new Texture("Textures/Background_1.png");
+    Texture background2 = new Texture("Textures/Background_2.png");
+
     public RenderingSystem(Array<Entity> entities, TiledMap map, OrthographicCamera cam)
     {
         super(entities, RenderableComponent.class);
@@ -40,7 +47,7 @@ public class RenderingSystem extends GameSystem
         s = new SpriteBatch();
         sh = new ShapeRenderer();
         font = new BitmapFont();
-        font.getData().setScale(0.5f);
+
 
         tmr = new OrthogonalTiledMapRenderer(map, s);
     }
@@ -58,11 +65,25 @@ public class RenderingSystem extends GameSystem
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
 
+        s.begin();
+        s.setColor(Color.WHITE);
+
+        s.setProjectionMatrix(new Matrix4().idt());
+        s.draw(background2,
+                -1, -1,
+                2, 2);
+        s.draw(background1,
+                -1, -1,
+                2, 2);
+        s.end();
+
         tmr.setView(cam);
         tmr.render();
 
+
         s.begin();
         s.setProjectionMatrix(cam.combined);
+
     }
 
     @Override
@@ -73,6 +94,7 @@ public class RenderingSystem extends GameSystem
 
         TextureRegion tex = r.getRenderable();
 
+        s.setColor(r.getColor());
         if(r.isFacingRight())
         {
             s.draw(tex,
@@ -90,6 +112,7 @@ public class RenderingSystem extends GameSystem
                     tex.getRegionHeight());
         }
 
+        font.setColor(Color.BLACK);
         font.draw(s,
                   e.NAME,
                   tr.position.x - 8,
