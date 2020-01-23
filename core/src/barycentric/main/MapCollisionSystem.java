@@ -64,6 +64,8 @@ public class MapCollisionSystem
                 col.WIDTH,
                 col.HEIGHT);
 
+        CharacterStateComponent.State prev = state.currentState;
+
         state.currentState = CharacterStateComponent.State.InAir;
         for (Tile tile : collidableTiles)
         {
@@ -71,6 +73,15 @@ public class MapCollisionSystem
 
             if (side == 1)
             {
+                if(prev == CharacterStateComponent.State.InAir)
+                {
+                    if(state.attackState == CharacterStateComponent.AttackState.Neutral)
+                    {
+                        state.attackState = CharacterStateComponent.AttackState.None;
+                        state.currentState = CharacterStateComponent.State.OnGround;
+                    }
+                }
+
                 if(tile.ONE_WAY)
                 {
                     if(movement.velocityY < 0)
@@ -84,6 +95,7 @@ public class MapCollisionSystem
                     transform.position.y = tile.rect.y + tile.rect.height - col.Y;
                     state.currentState = CharacterStateComponent.State.OnGround;
                 }
+
 
             }
 
