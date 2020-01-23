@@ -32,7 +32,7 @@ public class PlayerMovementSystem extends GameSystem
 
         if(state.currentState == PlayerStateComponent.State.InAir)
         {
-            movement.velocityY -= 256f * dt;
+            movement.velocityY -= 1024f * dt;
         }
 
         if(state.currentState == PlayerStateComponent.State.OnGround)
@@ -40,8 +40,9 @@ public class PlayerMovementSystem extends GameSystem
             movement.velocityY = -1;
             if(in.isKeyDown(in.JUMP))
             {
+                in.setKey(in.JUMP, false);
                 state.currentState = PlayerStateComponent.State.InAir;
-                movement.velocityY = 256;
+                movement.velocityY = 384f;
             }
         }
 

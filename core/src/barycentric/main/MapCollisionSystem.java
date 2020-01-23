@@ -12,9 +12,23 @@ import barycentric.component.TransformComponent;
 
 public class MapCollisionSystem
 {
+    private class Tile
+    {
+        Rectangle rect;
+
+        final boolean ONE_WAY;
+
+        public Tile(Rectangle rect, boolean oneWay)
+        {
+            this.rect = rect;
+            this.ONE_WAY = oneWay;
+        }
+
+    }
+
     private TiledMap map;
 
-    private Array<Rectangle> collidableTiles = new Array<>();
+    private Array<Tile> collidableTiles = new Array<>();
 
     //this is here so we don't allocate a rectangle every iteration
     private Rectangle colRect = new Rectangle();
@@ -35,8 +49,9 @@ public class MapCollisionSystem
                     float y = j * collisionLayer.getTileHeight();
                     float w = collisionLayer.getTileWidth();
                     float h = collisionLayer.getTileHeight();
+                    boolean oneWay = collisionLayer.getCell(i,j).getTile().getProperties().get("OneWay", Boolean.class);
 
-                    collidableTiles.add(new Rectangle(x, y, w, h));
+                    collidableTiles.add(new Tile(new Rectangle(x, y, w, h), oneWay));
                 }
             }
         }
@@ -53,19 +68,34 @@ public class MapCollisionSystem
                 col.HEIGHT);
 
         state.currentState = PlayerStateComponent.State.InAir;
-        for (Rectangle tile : collidableTiles)
+        for (Tile tile : collidableTiles)
         {
-            int side = getCollisionSide(colRect, tile);
+            int side = getCollisionSide(colRect, tile.rect);
 
             if (side == 1)
             {
-                transform.position.y = tile.y + tile.height - col.Y;
-                state.currentState = PlayerStateComponent.State.OnGround;
+                if(tile.ONE_WAY)
+                {
+                    if(movement.velocityY < 0)
+                    {
+                        transform.position.y = tile.rect.y + tile.rect.height - col.Y;
+                        state.currentState = PlayerStateComponent.State.OnGround;
+                    }
+                }
+                else
+                {
+                    transform.position.y = tile.rect.y + tile.rect.height - col.Y;
+                    state.currentState = PlayerStateComponent.State.OnGround;
+                }
+
             }
-            if (side == -1)
+
+            if(!tile.ONE_WAY)
             {
-                transform.position.y = tile.y - col.HEIGHT / 2f;
-                movement.velocityY = 0;
+                if (side == -1)
+                {
+                    transform.position.y = tile.rect.y - col.HEIGHT / 2f;
+                }
             }
         }
     }
@@ -79,17 +109,20 @@ public class MapCollisionSystem
                 col.WIDTH,
                 col.HEIGHT);
 
-        for (Rectangle tile : collidableTiles)
+        for (Tile tile : collidableTiles)
         {
-            int side = getCollisionSide(colRect, tile);
+            if(!tile.ONE_WAY)
+            {
+                int side = getCollisionSide(colRect, tile.rect);
 
-            if (side == -2)
-            {
-                transform.position.x = tile.x - col.WIDTH / 2;
-            }
-            if (side == 2)
-            {
-                transform.position.x = tile.x + tile.width + col.WIDTH / 2;
+                if (side == -2)
+                {
+                    transform.position.x = tile.rect.x - col.WIDTH / 2;
+                }
+                if (side == 2)
+                {
+                    transform.position.x = tile.rect.x + tile.rect.width + col.WIDTH / 2;
+                }
             }
         }
     }

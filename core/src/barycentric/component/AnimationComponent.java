@@ -74,7 +74,7 @@ public class AnimationComponent extends Component
         frames.add(atlas.findRegion("adventurer-jump-01"));
         frames.add(atlas.findRegion("adventurer-jump-02"));
         frames.add(atlas.findRegion("adventurer-jump-03"));
-        anim = new Animation<>(1f/12f, frames, Animation.PlayMode.NORMAL);
+        anim = new Animation<>(1f/16f, frames, Animation.PlayMode.NORMAL);
         animations.put(State.Jumping, anim);
 
         frames = new Array<>();
