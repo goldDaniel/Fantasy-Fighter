@@ -22,12 +22,6 @@ public class ControllerInputSystem extends GameSystem
         super(e, ControllerInputComponent.class);
     }
 
-    public IntMap<ControllerListener> getListeners()
-    {
-        return processors;
-    }
-
-
     @Override
     protected void process(Entity e, float dt)
     {
@@ -69,10 +63,10 @@ public class ControllerInputSystem extends GameSystem
             {
                 if(axisCode == 0)
                 {
-                    if(value > 0.25) in.setKey(in.RIGHT, true);
+                    if(value > 0.5) in.setKey(in.RIGHT, true);
                     else             in.setKey(in.RIGHT, false);
 
-                    if(value < -0.25) in.setKey(in.LEFT, true);
+                    if(value < -0.5) in.setKey(in.LEFT, true);
                     else              in.setKey(in.LEFT, false);
                 }
 
@@ -93,6 +87,9 @@ public class ControllerInputSystem extends GameSystem
     @Override
     public void dispose()
     {
-
+        for(IntMap.Entry<ControllerListener> e : processors)
+        {
+            Controllers.removeListener(e.value);
+        }
     }
 }

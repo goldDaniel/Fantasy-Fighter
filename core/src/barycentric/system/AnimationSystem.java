@@ -41,7 +41,7 @@ public class AnimationSystem extends GameSystem
             }
             else if(state.attackState == CharacterStateComponent.AttackState.Forward)
             {
-                c.setAnimationState(AnimationComponent.State.AttackGround3);
+                c.setAnimationState(AnimationComponent.State.AttackGround2);
 
                 if(c.isAnimationComplete())
                 {
@@ -92,7 +92,10 @@ public class AnimationSystem extends GameSystem
             }
             else
             {
-                c.setAnimationState(AnimationComponent.State.Falling);
+                if(!state.hasDoubleJumped)
+                {
+                    c.setAnimationState(AnimationComponent.State.Falling);
+                }
             }
         }
 

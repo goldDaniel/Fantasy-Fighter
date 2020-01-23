@@ -140,7 +140,7 @@ public class PlayerMovementSystem extends GameSystem
 
 
 
-        int iterations = 16;
+        int iterations = 4;
         for(int i = 0; i < iterations; i++)
         {
             transform.position.x += movement.velocityX * dt * (1f / iterations);

@@ -20,7 +20,7 @@ public class CharacterStateComponent extends Component
     public State currentState = State.InAir;
     public AttackState attackState = AttackState.None;
 
-    public final float COOLDOWN_TIME = 0.15f;
+    public final float COOLDOWN_TIME = 0.1f;
     public float cooldownTimer = 0;
 
     public boolean facingRight = true;

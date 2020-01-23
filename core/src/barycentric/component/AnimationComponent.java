@@ -19,11 +19,9 @@ public class AnimationComponent extends Component
 
         AttackGround1,
         AttackGround2,
-        AttackGround3,
 
         AttackAir1,
         AttackAir2,
-        AttackAir3,
     }
     static TextureAtlas atlas = null;
     float stateTime = 0;
@@ -68,24 +66,14 @@ public class AnimationComponent extends Component
         animations.put(State.AttackGround1, anim);
 
         frames = new Array<>();
-        frames.add(atlas.findRegion("adventurer-attack2-00"));
-        frames.add(atlas.findRegion("adventurer-attack2-01"));
-        frames.add(atlas.findRegion("adventurer-attack2-02"));
-        frames.add(atlas.findRegion("adventurer-attack2-03"));
-        frames.add(atlas.findRegion("adventurer-attack2-04"));
-        frames.add(atlas.findRegion("adventurer-attack2-05"));
-        anim = new Animation<>(1f/12f, frames, Animation.PlayMode.NORMAL);
-        animations.put(State.AttackGround2, anim);
-
-        frames = new Array<>();
         frames.add(atlas.findRegion("adventurer-attack3-00"));
         frames.add(atlas.findRegion("adventurer-attack3-01"));
         frames.add(atlas.findRegion("adventurer-attack3-02"));
         frames.add(atlas.findRegion("adventurer-attack3-03"));
         frames.add(atlas.findRegion("adventurer-attack3-04"));
         frames.add(atlas.findRegion("adventurer-attack3-05"));
-        anim = new Animation<>(1f/16f, frames, Animation.PlayMode.NORMAL);
-        animations.put(State.AttackGround3, anim);
+        anim = new Animation<>(1f/12f, frames, Animation.PlayMode.NORMAL);
+        animations.put(State.AttackGround2, anim);
 
         frames = new Array<>();
         frames.add(atlas.findRegion("adventurer-air-attack1-00"));
