@@ -1,10 +1,9 @@
 package barycentric.system;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Array;
+
 import barycentric.component.MapCollisionComponent;
 import barycentric.component.TransformComponent;
 import barycentric.main.Entity;

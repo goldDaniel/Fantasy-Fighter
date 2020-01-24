@@ -58,21 +58,42 @@ public class AnimationComponent extends Component
 
         frames = new Array<>();
         frames.add(atlas.findRegion("adventurer-attack1-00"));
+        frames.add(atlas.findRegion("adventurer-attack1-00"));
+        frames.add(atlas.findRegion("adventurer-attack1-00"));
+        frames.add(atlas.findRegion("adventurer-attack1-00"));
+        frames.add(atlas.findRegion("adventurer-attack1-01"));
+        frames.add(atlas.findRegion("adventurer-attack1-01"));
+        frames.add(atlas.findRegion("adventurer-attack1-01"));
         frames.add(atlas.findRegion("adventurer-attack1-01"));
         frames.add(atlas.findRegion("adventurer-attack1-02"));
         frames.add(atlas.findRegion("adventurer-attack1-03"));
         frames.add(atlas.findRegion("adventurer-attack1-04"));
-        anim = new Animation<>(1f/12f, frames, Animation.PlayMode.NORMAL);
+        anim = new Animation<>(1f/16f, frames, Animation.PlayMode.NORMAL);
         animations.put(State.AttackGround1, anim);
 
         frames = new Array<>();
+        frames.add(atlas.findRegion("adventurer-attack1-00"));
+        frames.add(atlas.findRegion("adventurer-attack1-00"));
+        frames.add(atlas.findRegion("adventurer-attack1-00"));
+        frames.add(atlas.findRegion("adventurer-attack1-00"));
+        frames.add(atlas.findRegion("adventurer-attack1-01"));
+        frames.add(atlas.findRegion("adventurer-attack1-02"));
+        frames.add(atlas.findRegion("adventurer-attack1-03"));
+        frames.add(atlas.findRegion("adventurer-attack1-04"));
+        frames.add(atlas.findRegion("adventurer-attack2-00"));
+        frames.add(atlas.findRegion("adventurer-attack2-01"));
+        frames.add(atlas.findRegion("adventurer-attack2-02"));
+        frames.add(atlas.findRegion("adventurer-attack2-03"));
+        frames.add(atlas.findRegion("adventurer-attack2-04"));
+        frames.add(atlas.findRegion("adventurer-attack2-05"));
+        frames.add(atlas.findRegion("adventurer-attack2-05"));
         frames.add(atlas.findRegion("adventurer-attack3-00"));
         frames.add(atlas.findRegion("adventurer-attack3-01"));
         frames.add(atlas.findRegion("adventurer-attack3-02"));
         frames.add(atlas.findRegion("adventurer-attack3-03"));
         frames.add(atlas.findRegion("adventurer-attack3-04"));
         frames.add(atlas.findRegion("adventurer-attack3-05"));
-        anim = new Animation<>(1f/12f, frames, Animation.PlayMode.NORMAL);
+        anim = new Animation<>(1f/24f, frames, Animation.PlayMode.NORMAL);
         animations.put(State.AttackGround2, anim);
 
         frames = new Array<>();
@@ -82,6 +103,8 @@ public class AnimationComponent extends Component
         frames.add(atlas.findRegion("adventurer-air-attack1-03"));
         anim = new Animation<>(1f/12f, frames, Animation.PlayMode.NORMAL);
         animations.put(State.AttackAir1, anim);
+
+
 
         frames = new Array<>();
         frames.add(atlas.findRegion("adventurer-air-attack3-loop-00"));

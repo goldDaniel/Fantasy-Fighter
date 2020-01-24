@@ -59,7 +59,7 @@ public class Entry extends ApplicationAdapter
 		t.position.x = 16*16;
 		t.position.y = 16*40;
 		RenderableComponent r = (RenderableComponent)e.getComponent(RenderableComponent.class);
-		r.setColor(Color.PURPLE);
+		r.setColor(Color.WHITE);
 
 		e = new Entity("Maz")
 				.addComponent(new KeyboardInputComponent(Input.Keys.LEFT, Input.Keys.RIGHT, Input.Keys.UP, Input.Keys.PERIOD, Input.Keys.SLASH))

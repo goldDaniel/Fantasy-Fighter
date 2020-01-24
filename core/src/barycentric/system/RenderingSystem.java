@@ -33,8 +33,7 @@ public class RenderingSystem extends GameSystem
     OrthogonalTiledMapRenderer tmr;
 
 
-    static Texture background1 = new Texture("Textures/Background_1.png");
-    static Texture background2 = new Texture("Textures/Background_2.png");
+    Array<Texture> backgroundTextures = new Array<>();
 
     public RenderingSystem(Array<Entity> entities, TiledMap map, OrthographicCamera cam)
     {
@@ -50,6 +49,12 @@ public class RenderingSystem extends GameSystem
 
 
         tmr = new OrthogonalTiledMapRenderer(map, s);
+
+        for (int i = 2; i <= 6; i++)
+        {
+            Texture t = new Texture("Textures/Background/Hills Layer 0" + i + ".png");
+            backgroundTextures.add(t);
+        }
     }
 
     public void updateViewport(int w, int h)
@@ -61,7 +66,7 @@ public class RenderingSystem extends GameSystem
     @Override
     protected void preUpdate()
     {
-        Gdx.gl.glClearColor(0.2f, 0.1f, 0.2f, 1.f);
+        Gdx.gl.glClearColor(0.7f, 0.7f, 0.8f, 1.f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
 
@@ -69,12 +74,12 @@ public class RenderingSystem extends GameSystem
         s.setColor(Color.WHITE);
 
         s.setProjectionMatrix(new Matrix4().idt());
-        s.draw(background2,
-                -1, -1,
-                2, 2);
-        s.draw(background1,
-                -1, -1,
-                2, 2);
+        for (Texture t : backgroundTextures)
+        {
+            s.draw(t,
+                    -1, -1,
+                    2, 2);
+        }
         s.end();
 
         tmr.setView(cam);

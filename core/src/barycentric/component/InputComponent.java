@@ -2,7 +2,7 @@ package barycentric.component;
 
 import com.badlogic.gdx.utils.IntMap;
 
-public class InputComponent extends Component
+public abstract class InputComponent extends Component
 {
     public final int LEFT;
     public final int RIGHT;

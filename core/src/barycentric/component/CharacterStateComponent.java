@@ -24,6 +24,6 @@ public class CharacterStateComponent extends Component
     public float cooldownTimer = 0;
 
     public boolean facingRight = true;
-    public boolean hasJumped = false;
-    public boolean hasDoubleJumped = false;
+    public boolean hasJumped = true;
+    public boolean hasDoubleJumped = true;
 }

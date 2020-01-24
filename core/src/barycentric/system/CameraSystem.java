@@ -14,9 +14,9 @@ public class CameraSystem extends GameSystem
 
     private OrthographicCamera cam;
     private final Vector2 averagePos = new Vector2();
-
-
     private Array<Vector2> points = new Array<>();
+
+    float accumulator = 0;
 
     public CameraSystem(Array<Entity> entities, OrthographicCamera cam)
     {
@@ -74,6 +74,9 @@ public class CameraSystem extends GameSystem
         largestDistance /= 256f;
 
         float targetZoom = MathUtils.clamp(largestDistance, 0.7f, 1.35f);
+
+        cam.position.y += 16  * MathUtils.sin(accumulator);
+        accumulator += 1f/240f;
 
         cam.zoom = MathUtils.lerp(cam.zoom, targetZoom, 0.05f);
 
