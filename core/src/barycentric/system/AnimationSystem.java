@@ -29,7 +29,7 @@ public class AnimationSystem extends GameSystem
 
         if(state.currentState == CharacterStateComponent.State.OnGround)
         {
-            if(state.attackState == CharacterStateComponent.AttackState.Neutral)
+            if(state.attackState == CharacterStateComponent.AttackState.Strong)
             {
                 c.setAnimationState(AnimationComponent.State.AttackGround1);
 
@@ -39,7 +39,7 @@ public class AnimationSystem extends GameSystem
                     state.attackState = CharacterStateComponent.AttackState.None;
                 }
             }
-            else if(state.attackState == CharacterStateComponent.AttackState.Forward)
+            else if(state.attackState == CharacterStateComponent.AttackState.Weak)
             {
                 c.setAnimationState(AnimationComponent.State.AttackGround2);
 
@@ -64,11 +64,11 @@ public class AnimationSystem extends GameSystem
         }
         if(state.currentState == CharacterStateComponent.State.InAir)
         {
-            if(state.attackState == CharacterStateComponent.AttackState.Neutral)
+            if(state.attackState == CharacterStateComponent.AttackState.Strong)
             {
                 c.setAnimationState(AnimationComponent.State.AttackAir2);
             }
-            else if(state.attackState == CharacterStateComponent.AttackState.Forward)
+            else if(state.attackState == CharacterStateComponent.AttackState.Weak)
             {
                 c.setAnimationState(AnimationComponent.State.AttackAir1);
 

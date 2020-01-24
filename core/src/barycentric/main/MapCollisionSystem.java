@@ -75,7 +75,7 @@ public class MapCollisionSystem
             {
                 if(prev == CharacterStateComponent.State.InAir)
                 {
-                    if(state.attackState == CharacterStateComponent.AttackState.Neutral)
+                    if(state.attackState == CharacterStateComponent.AttackState.Strong)
                     {
                         state.attackState = CharacterStateComponent.AttackState.None;
                         state.currentState = CharacterStateComponent.State.OnGround;

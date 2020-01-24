@@ -13,8 +13,8 @@ public class CharacterStateComponent extends Component
     public enum AttackState
     {
         None,
-        Forward,
-        Neutral,
+        Weak,
+        Strong,
     }
 
     public State currentState = State.InAir;

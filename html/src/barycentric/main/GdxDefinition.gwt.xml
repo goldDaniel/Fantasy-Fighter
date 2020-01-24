@@ -2,6 +2,12 @@
 <!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit trunk//EN" "http://www.gwtproject.org/doctype/2.8.0/gwt-module.dtd">
 <module rename-to="html">
 	<inherits name='com.badlogic.gdx.backends.gdx_backends_gwt' />
+	<inherits name='com.badlogic.gdx.controllers'/>
+	<source path="gwt"/>
+	<super-source path="gwt/emu" />
+	<extend-configuration-property name="gdx.reflect.include"
+		value="com.badlogic.gdx.controllers.gwt.GwtControllers" />
+
 	<inherits name='Entry' />
 
 	<entry-point class='barycentric.main.client.HtmlLauncher' />

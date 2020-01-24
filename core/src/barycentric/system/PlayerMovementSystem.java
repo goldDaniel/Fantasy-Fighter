@@ -4,7 +4,6 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.utils.Array;
 
 import barycentric.component.InputComponent;
-import barycentric.component.KeyboardInputComponent;
 import barycentric.component.MapCollisionComponent;
 import barycentric.component.MovementComponent;
 import barycentric.component.CharacterStateComponent;
@@ -66,13 +65,13 @@ public class PlayerMovementSystem extends GameSystem
             {
                 if (in.isKeyDown(in.ATTACK_STRONG))
                 {
-                    state.attackState = CharacterStateComponent.AttackState.Neutral;
+                    state.attackState = CharacterStateComponent.AttackState.Strong;
                     state.cooldownTimer = state.COOLDOWN_TIME;
                     in.setKey(in.ATTACK_STRONG, false);
                 }
                 else if (in.isKeyDown(in.ATTACK_WEAK))
                 {
-                    state.attackState = CharacterStateComponent.AttackState.Forward;
+                    state.attackState = CharacterStateComponent.AttackState.Weak;
                     state.cooldownTimer = state.COOLDOWN_TIME;
                     in.setKey(in.ATTACK_WEAK, false);
                 }
@@ -90,12 +89,12 @@ public class PlayerMovementSystem extends GameSystem
         if(state.currentState == CharacterStateComponent.State.InAir)
         {
 
-            if(state.attackState == CharacterStateComponent.AttackState.Forward)
+            if(state.attackState == CharacterStateComponent.AttackState.Weak)
             {
                 movement.velocityY = 0;
             }
 
-            if(state.attackState == CharacterStateComponent.AttackState.Neutral)
+            if(state.attackState == CharacterStateComponent.AttackState.Strong)
             {
                 movement.velocityY -= GRAVITY * 2f * dt;
             }
@@ -108,14 +107,14 @@ public class PlayerMovementSystem extends GameSystem
             {
                 if (in.isKeyDown(in.ATTACK_STRONG))
                 {
-                    state.attackState = CharacterStateComponent.AttackState.Neutral;
+                    state.attackState = CharacterStateComponent.AttackState.Strong;
                     in.setKey(in.ATTACK_STRONG, false);
                     state.cooldownTimer = state.COOLDOWN_TIME;
                 }
                 else if (in.isKeyDown(in.ATTACK_WEAK))
                 {
 
-                    state.attackState = CharacterStateComponent.AttackState.Forward;
+                    state.attackState = CharacterStateComponent.AttackState.Weak;
                     in.setKey(in.ATTACK_WEAK, false);
                     state.cooldownTimer = state.COOLDOWN_TIME;
                 }
