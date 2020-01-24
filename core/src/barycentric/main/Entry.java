@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.Array;
 import barycentric.component.AnimationComponent;
 import barycentric.component.CharacterStateComponent;
 import barycentric.component.ControllerInputComponent;
+import barycentric.component.HurtboxComponent;
 import barycentric.component.KeyboardInputComponent;
 import barycentric.component.MapCollisionComponent;
 import barycentric.component.MovementComponent;
@@ -22,6 +23,7 @@ import barycentric.component.TransformComponent;
 import barycentric.system.AnimationSystem;
 import barycentric.system.CameraSystem;
 import barycentric.system.ControllerInputSystem;
+import barycentric.system.DebugRenderingSystem;
 import barycentric.system.GameSystem;
 import barycentric.system.KeyboardInputSystem;
 import barycentric.system.PlayerMovementSystem;
@@ -51,6 +53,7 @@ public class Entry extends ApplicationAdapter
 				.addComponent(new CharacterStateComponent())
 				.addComponent(new MovementComponent())
 				.addComponent(new MapCollisionComponent(-8, -16, 16, 32))
+				.addComponent(new HurtboxComponent())
 				.addComponent(new AnimationComponent())
 				.addComponent(new RenderableComponent());
 		entities.add(e);
@@ -89,6 +92,7 @@ public class Entry extends ApplicationAdapter
 		systems.add(new AnimationSystem(entities));
 		systems.add(new CameraSystem(entities, cam));
 		systems.add(s);
+		systems.add(new DebugRenderingSystem(entities, cam));
 	}
 
 

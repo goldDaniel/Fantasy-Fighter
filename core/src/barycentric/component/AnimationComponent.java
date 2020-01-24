@@ -26,7 +26,7 @@ public class AnimationComponent extends Component
     static TextureAtlas atlas = null;
     float stateTime = 0;
 
-    ArrayMap<State, Animation> animations = new ArrayMap<>();
+    ArrayMap<State, Animation<TextureRegion>> animations = new ArrayMap<>();
     State currentAnimation = State.Idle;
 
     public AnimationComponent()
@@ -35,7 +35,6 @@ public class AnimationComponent extends Component
         {
             atlas = new TextureAtlas(Gdx.files.internal("Textures/Adventurer.atlas"));
         }
-
 
         Array<TextureRegion> frames = new Array<>();
         frames.add(atlas.findRegion("adventurer-idle-00"));
@@ -59,10 +58,6 @@ public class AnimationComponent extends Component
         frames = new Array<>();
         frames.add(atlas.findRegion("adventurer-attack1-00"));
         frames.add(atlas.findRegion("adventurer-attack1-00"));
-        frames.add(atlas.findRegion("adventurer-attack1-00"));
-        frames.add(atlas.findRegion("adventurer-attack1-00"));
-        frames.add(atlas.findRegion("adventurer-attack1-01"));
-        frames.add(atlas.findRegion("adventurer-attack1-01"));
         frames.add(atlas.findRegion("adventurer-attack1-01"));
         frames.add(atlas.findRegion("adventurer-attack1-01"));
         frames.add(atlas.findRegion("adventurer-attack1-02"));
@@ -72,14 +67,9 @@ public class AnimationComponent extends Component
         animations.put(State.AttackGround1, anim);
 
         frames = new Array<>();
-        frames.add(atlas.findRegion("adventurer-attack1-00"));
-        frames.add(atlas.findRegion("adventurer-attack1-00"));
-        frames.add(atlas.findRegion("adventurer-attack1-00"));
-        frames.add(atlas.findRegion("adventurer-attack1-00"));
-        frames.add(atlas.findRegion("adventurer-attack1-01"));
-        frames.add(atlas.findRegion("adventurer-attack1-02"));
-        frames.add(atlas.findRegion("adventurer-attack1-03"));
-        frames.add(atlas.findRegion("adventurer-attack1-04"));
+        frames.add(atlas.findRegion("adventurer-attack2-00"));
+        frames.add(atlas.findRegion("adventurer-attack2-00"));
+        frames.add(atlas.findRegion("adventurer-attack2-00"));
         frames.add(atlas.findRegion("adventurer-attack2-00"));
         frames.add(atlas.findRegion("adventurer-attack2-01"));
         frames.add(atlas.findRegion("adventurer-attack2-02"));
@@ -147,6 +137,16 @@ public class AnimationComponent extends Component
             currentAnimation = type;
             stateTime = 0;
         }
+    }
+
+    public float getStateTime()
+    {
+        return stateTime;
+    }
+
+    public AnimationComponent.State getAnimationState()
+    {
+        return currentAnimation;
     }
 
     public TextureRegion getCurrentFrame()

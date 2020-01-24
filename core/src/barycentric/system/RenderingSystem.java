@@ -66,7 +66,7 @@ public class RenderingSystem extends GameSystem
     @Override
     protected void preUpdate()
     {
-        Gdx.gl.glClearColor(0.7f, 0.7f, 0.8f, 1.f);
+        Gdx.gl.glClearColor(0.1f, 0.1f, 0.2f, 1.f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
 

@@ -2,9 +2,12 @@ package barycentric.system;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 
-import barycentric.component.MapCollisionComponent;
+import barycentric.component.AnimationComponent;
+import barycentric.component.CharacterStateComponent;
+import barycentric.component.HurtboxComponent;
 import barycentric.component.TransformComponent;
 import barycentric.main.Entity;
 
@@ -16,7 +19,7 @@ public class DebugRenderingSystem extends GameSystem
 
     public DebugRenderingSystem(Array<Entity> e, OrthographicCamera cam)
     {
-        super(e, MapCollisionComponent.class);
+        super(e, AnimationComponent.class, CharacterStateComponent.class, HurtboxComponent.class);
 
         sh = new ShapeRenderer();
         this.cam = cam;
@@ -33,13 +36,33 @@ public class DebugRenderingSystem extends GameSystem
     @Override
     protected void process(Entity e, float dt)
     {
+        CharacterStateComponent state = (CharacterStateComponent)e.getComponent(CharacterStateComponent.class);
         TransformComponent transform = (TransformComponent)e.getComponent(TransformComponent.class);
-        MapCollisionComponent col   = (MapCollisionComponent)e.getComponent(MapCollisionComponent.class);
+        AnimationComponent anim = (AnimationComponent)e.getComponent(AnimationComponent.class);
+        HurtboxComponent box   = (HurtboxComponent)e.getComponent(HurtboxComponent.class);
 
-        sh.rect(transform.position.x + col.X,
-                transform.position.y + col.Y,
-                col.WIDTH,
-                col.HEIGHT);
+        if(box.getHurtboxes(anim.getAnimationState()) != null)
+        {
+            Rectangle r = box.getHurtboxes(anim.getAnimationState()).getKeyFrame(anim.getStateTime());
+
+            if(r != null)
+            {
+                if(state.facingRight)
+                {
+                    sh.rect(transform.position.x + r.x,
+                            transform.position.y + r.y,
+                            r.width,
+                            r.height);
+                }
+                else
+                {
+                    sh.rect(transform.position.x - r.x,
+                            transform.position.y + r.y,
+                            -r.width,
+                            r.height);
+                }
+            }
+        }
     }
 
     @Override
