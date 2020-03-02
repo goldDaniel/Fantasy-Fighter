@@ -1,10 +1,10 @@
-package barycentric.system;
+package barycentric.ecs.system;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Array;
 
 import barycentric.main.Entity;
-import barycentric.component.Component;
+import barycentric.ecs.component.Component;
 
 public abstract class GameSystem
 {
@@ -18,6 +18,7 @@ public abstract class GameSystem
     {
         this.entities = null;
         systemComponents = null;
+
         Gdx.app.error("GameSystem", "System created without components. Shutting down");
         Gdx.app.exit();
     }

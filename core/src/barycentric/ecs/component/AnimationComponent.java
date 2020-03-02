@@ -1,4 +1,4 @@
-package barycentric.component;
+package barycentric.ecs.component;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -76,13 +76,6 @@ public class AnimationComponent extends Component
         frames.add(atlas.findRegion("adventurer-attack2-03"));
         frames.add(atlas.findRegion("adventurer-attack2-04"));
         frames.add(atlas.findRegion("adventurer-attack2-05"));
-        frames.add(atlas.findRegion("adventurer-attack2-05"));
-        frames.add(atlas.findRegion("adventurer-attack3-00"));
-        frames.add(atlas.findRegion("adventurer-attack3-01"));
-        frames.add(atlas.findRegion("adventurer-attack3-02"));
-        frames.add(atlas.findRegion("adventurer-attack3-03"));
-        frames.add(atlas.findRegion("adventurer-attack3-04"));
-        frames.add(atlas.findRegion("adventurer-attack3-05"));
         anim = new Animation<>(1f/24f, frames, Animation.PlayMode.NORMAL);
         animations.put(State.AttackGround2, anim);
 

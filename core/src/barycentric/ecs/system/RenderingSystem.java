@@ -1,4 +1,4 @@
-package barycentric.system;
+package barycentric.ecs.system;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -16,8 +16,8 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 import barycentric.main.Entity;
-import barycentric.component.RenderableComponent;
-import barycentric.component.TransformComponent;
+import barycentric.ecs.component.RenderableComponent;
+import barycentric.ecs.component.TransformComponent;
 
 public class RenderingSystem extends GameSystem
 {
@@ -76,9 +76,7 @@ public class RenderingSystem extends GameSystem
         s.setProjectionMatrix(new Matrix4().idt());
         for (Texture t : backgroundTextures)
         {
-            s.draw(t,
-                    -1, -1,
-                    2, 2);
+            s.draw(t, -1, -1, 2, 2);
         }
         s.end();
 

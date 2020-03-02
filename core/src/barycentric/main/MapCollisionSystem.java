@@ -5,10 +5,10 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 
-import barycentric.component.MapCollisionComponent;
-import barycentric.component.MovementComponent;
-import barycentric.component.CharacterStateComponent;
-import barycentric.component.TransformComponent;
+import barycentric.ecs.component.MapCollisionComponent;
+import barycentric.ecs.component.MovementComponent;
+import barycentric.ecs.component.CharacterStateComponent;
+import barycentric.ecs.component.TransformComponent;
 
 public class MapCollisionSystem
 {

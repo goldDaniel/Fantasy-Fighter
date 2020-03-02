@@ -1,11 +1,11 @@
-package barycentric.system;
+package barycentric.ecs.system;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
-import barycentric.component.TransformComponent;
+import barycentric.ecs.component.TransformComponent;
 import barycentric.main.Entity;
 
 public class CameraSystem extends GameSystem
@@ -75,7 +75,7 @@ public class CameraSystem extends GameSystem
 
         float targetZoom = MathUtils.clamp(largestDistance, 0.7f, 1.35f);
 
-        cam.position.y += 16  * MathUtils.sin(accumulator);
+        cam.position.y += 32  * MathUtils.sin(accumulator);
         accumulator += 1f/240f;
 
         cam.zoom = MathUtils.lerp(cam.zoom, targetZoom, 0.05f);

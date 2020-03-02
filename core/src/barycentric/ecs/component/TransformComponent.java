@@ -1,4 +1,4 @@
-package barycentric.component;
+package barycentric.ecs.component;
 
 import com.badlogic.gdx.math.Vector2;
 

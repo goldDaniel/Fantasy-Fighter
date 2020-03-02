@@ -1,14 +1,14 @@
-package barycentric.system;
+package barycentric.ecs.system;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 
-import barycentric.component.AnimationComponent;
-import barycentric.component.CharacterStateComponent;
-import barycentric.component.HurtboxComponent;
-import barycentric.component.TransformComponent;
+import barycentric.ecs.component.AnimationComponent;
+import barycentric.ecs.component.CharacterStateComponent;
+import barycentric.ecs.component.HurtboxComponent;
+import barycentric.ecs.component.TransformComponent;
 import barycentric.main.Entity;
 
 public class DebugRenderingSystem extends GameSystem

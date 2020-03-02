@@ -1,4 +1,4 @@
-package barycentric.component;
+package barycentric.ecs.component;
 
 public class MovementComponent extends Component
 {

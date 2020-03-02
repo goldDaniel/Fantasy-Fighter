@@ -1,12 +1,12 @@
-package barycentric.system;
+package barycentric.ecs.system;
 
 import com.badlogic.gdx.utils.Array;
 
-import barycentric.component.MovementComponent;
-import barycentric.component.CharacterStateComponent;
+import barycentric.ecs.component.MovementComponent;
+import barycentric.ecs.component.CharacterStateComponent;
 import barycentric.main.Entity;
-import barycentric.component.AnimationComponent;
-import barycentric.component.RenderableComponent;
+import barycentric.ecs.component.AnimationComponent;
+import barycentric.ecs.component.RenderableComponent;
 
 public class AnimationSystem extends GameSystem
 {

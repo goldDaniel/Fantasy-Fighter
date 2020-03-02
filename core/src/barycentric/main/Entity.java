@@ -3,8 +3,8 @@ package barycentric.main;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Array;
 
-import barycentric.component.Component;
-import barycentric.component.TransformComponent;
+import barycentric.ecs.component.Component;
+import barycentric.ecs.component.TransformComponent;
 
 public class Entity
 {

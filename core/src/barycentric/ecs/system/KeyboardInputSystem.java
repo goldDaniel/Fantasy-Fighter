@@ -1,4 +1,4 @@
-package barycentric.system;
+package barycentric.ecs.system;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
@@ -7,8 +7,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntMap;
 
-import barycentric.component.KeyboardInputComponent;
-import barycentric.component.CharacterStateComponent;
+import barycentric.ecs.component.KeyboardInputComponent;
 import barycentric.main.Entity;
 
 public class KeyboardInputSystem extends GameSystem

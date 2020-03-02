@@ -1,5 +1,6 @@
-package barycentric.system;
+package barycentric.ecs.system;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.controllers.ControllerAdapter;
 import com.badlogic.gdx.controllers.ControllerListener;
@@ -8,7 +9,7 @@ import com.badlogic.gdx.controllers.PovDirection;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntMap;
 
-import barycentric.component.ControllerInputComponent;
+import barycentric.ecs.component.ControllerInputComponent;
 import barycentric.main.Entity;
 
 public class ControllerInputSystem extends GameSystem
@@ -24,7 +25,7 @@ public class ControllerInputSystem extends GameSystem
 
     @Override
     protected void process(Entity e, float dt)
-    {
+        {
         if(!processors.containsKey(e.ID))
         {
             ControllerInputComponent in = (ControllerInputComponent)e.getComponent(ControllerInputComponent.class);
@@ -69,6 +70,12 @@ public class ControllerInputSystem extends GameSystem
                     if(value < -0.5) in.setKey(in.LEFT, true);
                     else              in.setKey(in.LEFT, false);
                 }
+                if(axisCode == 1)
+                {
+                    if(value > 0.5) in.setKey(in.DOWN, true);
+                    else              in.setKey(in.DOWN, false);
+                }
+
 
                 return false;
             }
